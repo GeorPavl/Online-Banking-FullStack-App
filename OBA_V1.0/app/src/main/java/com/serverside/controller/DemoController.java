@@ -7,6 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class DemoController {
 
+    @GetMapping("/")
+    public String getIndex(Model model) {
+        model.addAttribute("theDate", new java.util.Date());
+        return "index";
+    }
+
     @GetMapping("/hello")
     public String sayHello(Model model) {
         model.addAttribute("theDate", new java.util.Date());
