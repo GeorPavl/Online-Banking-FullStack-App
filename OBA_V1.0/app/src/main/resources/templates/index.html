@@ -8,8 +8,9 @@
     <link th:href="@{/css/fontawesome/css/all.css}" rel="stylesheet" />
     <link th:href="@{/css/default.css}" rel="stylesheet" />
     <link th:href="@{https://fonts.googleapis.com/css?family=Comfortaa}" rel="stylesheet" />
-    <title>Home</title>
+    <title th:text="${PageTitle}"></title>
 </head>
+
 <body class="d-flex align-items-center">
 
     <!-- Card: Sample Text -->
@@ -43,8 +44,8 @@
 
         <!-- Button Wraper-->
         <div class="button-wrapper d-flex align-items-center">
-            <a href="" class="btn btn-md register" role="button">Register</a>
-            <a href="" class="btn btn-md login" role="button">Login</a>
+            <a href="/register" class="btn btn-md register" role="button">Register</a>
+            <a href="/login" class="btn btn-md login" role="button">Login</a>
         </div>
         <!-- End of Button Wraper -->
 

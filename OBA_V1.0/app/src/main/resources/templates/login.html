@@ -1,17 +1,17 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
-    <title>Demo App</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet" />
     <link th:href="@{/css/fontawesome/css/all.css}" rel="stylesheet" />
+    <link th:href="@{/css/default.css}" rel="stylesheet" />
     <link th:href="@{https://fonts.googleapis.com/css?family=Comfortaa}" rel="stylesheet" />
+    <title th:text="${PageTitle}"></title>
 </head>
 
 <body>
-
-    <p class="text-uppercase" th:text="'Time on the server is: ' + ${theDate}"/>
-    <p class="text">aris aris</p>
+    <p th:text="${SampleText}"></p>
 </body>
-
 </html>
