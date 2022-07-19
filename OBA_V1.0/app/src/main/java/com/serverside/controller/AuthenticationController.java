@@ -34,5 +34,6 @@ public class AuthenticationController {
             return "register";
         }
 
+        return "register";
     }
 }
