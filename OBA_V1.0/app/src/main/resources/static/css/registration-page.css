@@ -1,0 +1,21 @@
+.card {
+    font-family: Comfortaa;
+}
+
+.card .card-title {
+    color: white;
+}
+
+.card .form-control {
+    margin: 10px 0px;
+    box-shadow: 0px 3px 6px rgb(0, 14, 53);
+}
+
+.card button {
+    background-color: #ff4e00;
+    border: 1px solid #882B00;
+    color: white;
+    width: 200px;
+    margin: 10px 0px;
+    box-shadow: 0px 3px 6px rgb(0, 14, 53);
+}

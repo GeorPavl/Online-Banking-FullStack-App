@@ -23,12 +23,21 @@ public class IndexController {
         return "register";
     }
 
+    // TODO: 19/7/2022 Fix css library "registration.css". Same CSS styles but different file name.
     @GetMapping("/login")
     public String getLoginPage(Model model) {
         String testString = "In Login Page Controller";
         model.addAttribute("PageTitle", "Login");
         model.addAttribute("SampleText", testString);
         return "login";
+    }
+
+    @GetMapping("/error")
+    public String getErrorPage(Model model) {
+        String testString = "In Error Page Controller";
+        model.addAttribute("PageTitle", "Error");
+        model.addAttribute("SampleText", testString);
+        return "error";
     }
 
     @GetMapping("/hello")

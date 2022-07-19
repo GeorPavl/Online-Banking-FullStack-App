@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet" />
+        <link th:href="@{/css/fontawesome/css/all.css}" rel="stylesheet" />
+        <link th:href="@{/css/default.css}" rel="stylesheet" />
+        <link th:href="@{https://fonts.googleapis.com/css?family=Comfortaa}" rel="stylesheet" />
+        <title th:text="${PageTitle}"></title>
+    </head>
+
+    <body class="d-flex align-items-center justify-content-center">
+
+        <!-- Card: Error card -->
+        <div class="card col-4 alert alert-danger border border-danger">
+            <!-- Card Title -->
+            <h3 class="card-title">
+                <i class="fa fa-window-close me-2"></i>Errors:
+            </h3>
+            <!-- End of Card Title -->
+            <hr>
+            <!-- Card Body -->
+            <div class="card-body">
+                <!-- Card Text -->
+                <p class="card-text">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam fuga, cupiditate temporibus magnam voluptatibus eaque laudantium, maxime nemo est iste voluptate veniam sequi optio nesciunt!
+                </p>
+                <!-- End of Card Text -->
+                <hr>
+                <!-- Back to Login Page -->
+                <a href="/login" class="btn btn-sm btn-danger">
+                    <i class="fa fa-arrow-alt-circle-left me-1"></i>Back
+                </a>
+                <!-- End of Back to Login Page -->
+            </div>
+            <!-- End of Card Body -->
+        </div>
+        <!-- End of Card: Error card -->
+
+    </body>
+</html>
