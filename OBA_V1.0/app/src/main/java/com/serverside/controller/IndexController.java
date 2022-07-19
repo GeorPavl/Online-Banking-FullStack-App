@@ -40,9 +40,11 @@ public class IndexController {
         return "error";
     }
 
-    @GetMapping("/hello")
-    public String sayHello(Model model) {
-        model.addAttribute("theDate", new java.util.Date());
-        return "helloworld";
+    @GetMapping("/verify")
+    public String getVerifyPage(Model model) {
+        String testString = "In Verify Page Controller";
+        model.addAttribute("PageTitle", "Verify");
+        model.addAttribute("SampleText", testString);
+        return "login";
     }
 }
