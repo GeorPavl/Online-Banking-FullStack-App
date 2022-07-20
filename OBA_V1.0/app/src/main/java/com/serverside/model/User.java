@@ -54,4 +54,13 @@ public class User {
     private LocalDateTime created_at;
 
     private LocalDateTime updated_at;
+
+    public User(String firstName, String lastName, String email, String hashedPassword, String token, String code) {
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.setEmail(email);
+        this.setPassword(hashedPassword);
+        this.setToken(token);
+        this.setCode(code);
+    }
 }
