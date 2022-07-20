@@ -25,6 +25,22 @@
                 </h1>
                 <!-- End of Form Header -->
 
+                <!-- Display Message -->
+                <th:if test="${requestScope.passwordMisMatch != null}">
+                    <div class="alert alert-danger text-center border border-danger">
+                        <b>${requestScope.passwordMisMatch}</b>
+                    </div>
+                </th:if>
+                <!-- End Of Display Message -->
+
+                <!-- Display Message -->
+                <th:if test="${requestScope.success != null}">
+                    <div class="alert alert-success text-center border border-success">
+                        <b>${requestScope.success}</b>
+                    </div>
+                </th:if>
+                <!-- End Of Display Message -->
+
                 <!-- Registration Form -->
                 <form th:action="@{/register}" method="post" th:object="${registerUser}" class="reg-form">
                     <!-- Row -->
@@ -68,7 +84,7 @@
                         <!-- Form Group -->
                         <div class="form-group col">
                             <input type="password" name="confirmPassword" class="form-control form-control-lg" placeholder="Confirm password">
-                            <small th:text="${confirm_pass}" class="error-message"></small>
+                            <small th:text="${confirmPass}" class="error-message"></small>
                         </div>
                         <!-- End of Form Group -->
                     </div>

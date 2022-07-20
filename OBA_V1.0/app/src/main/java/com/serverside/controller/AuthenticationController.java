@@ -42,15 +42,15 @@ public class AuthenticationController {
         // Check for errors
         if (bindingResult.hasErrors() && confirmPassword.isEmpty()) {
 
-            model.addAttribute("confirm_pass", "The 'Confirm Password' field is required.");
+            model.addAttribute("confirmPass", "The 'Confirm Password' field is required.");
             return "register";
         }
 
         if (!password.equals(confirmPassword)) {
-            model.addAttribute("pass_match", "Passwords don't match.");
+            model.addAttribute("passwordMisMatch", "Passwords don't match.");
             return "register";
         }
-        
+
         // TODO: 20/7/2022 Get token string 
         String token = Token.generateToken();
 
