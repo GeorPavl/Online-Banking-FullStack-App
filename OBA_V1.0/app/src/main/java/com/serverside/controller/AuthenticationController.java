@@ -34,5 +34,23 @@ public class AuthenticationController {
             return "register";
         }
 
+        if (!password.equals(confirm_password)) {
+            model.addAttribute("pass_match", "Passwords don't match.");
+            return "register";
+        }
+        // TODO: 20/7/2022 Get token string 
+
+        // TODO: 20/7/2022 Generate Random Code
+
+        // TODO: 20/7/2022 Hash Password 
+
+        // TODO: 20/7/2022 Register User 
+
+        // TODO: 20/7/2022 Send Mail notification 
+
+        // TODO: 20/7/2022 Return to register page
+
+
+        return "register";
     }
 }
