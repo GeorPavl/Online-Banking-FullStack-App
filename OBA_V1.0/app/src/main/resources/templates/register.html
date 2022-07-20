@@ -26,19 +26,19 @@
                 <!-- End of Form Header -->
 
                 <!-- Display Message -->
-                <p th:if="${passwordMisMatch != null}">
+                <span th:if="${passwordMisMatch != null}">
                     <div class="alert alert-danger text-center border border-danger">
-                <b><span th:text="${passwordMisMatch}"></span></b>
+                        <b><span th:text="${passwordMisMatch}"></span></b>
                     </div>
-                </th:if>
+                </span>
                 <!-- End Of Display Message -->
 
                 <!-- Display Message -->
-                <p th:if="${success != null}">
+                <span th:if="${success != null}">
                     <div class="alert alert-success text-center border border-success">
                         <b><span th:text="${success}"></span></b>
                     </div>
-                </th:if>
+                </span>
                 <!-- End Of Display Message -->
 
                 <!-- Registration Form -->
@@ -109,7 +109,7 @@
                     <i class="fa fa-arrow-alt-circle-left me-1"></i><a href="/" class="btn btn-sm text-warning">Back</a>
                 </small>
                 <!-- End of Back Button to Landing Page -->
-            </div>
+            </span>
             <!-- End of Card Body-->
 
         </div>
