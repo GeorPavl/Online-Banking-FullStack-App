@@ -1,4 +1,4 @@
-package com.serverside.helpers;
+package com.serverside._helpers;
 
 import com.serverside.model.User;
 import org.springframework.web.bind.annotation.ControllerAdvice;

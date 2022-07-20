@@ -1,4 +1,4 @@
-package com.serverside.config;
+package com.serverside._config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
