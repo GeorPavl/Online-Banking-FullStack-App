@@ -82,7 +82,14 @@ public class AuthenticationController {
     public String getVerifyPage(@RequestParam("token") String token, @RequestParam("code") String code, Model model) {
         model.addAttribute("PageTitle", "Verify");
 
+        String dbToken = userService.checkToken(token);
+        if (dbToken == null) {
+            model.addAttribute("error", "This session has expired.");
+            return "error";
+        }
+
         userService.verifyAccount(token, code);
+
         model.addAttribute("success", "Account Verified Successfully, please proceed to Log In!");
         return "login";
     }

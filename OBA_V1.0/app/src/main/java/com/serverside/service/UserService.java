@@ -4,7 +4,9 @@ import com.serverside.model.User;
 
 public interface UserService {
 
-    void registerUser(User user);
+    User registerUser(User user);
 
-    void verifyAccount(String token, String code);
+    User verifyAccount(String token, String code);
+
+    String checkToken(String token);
 }

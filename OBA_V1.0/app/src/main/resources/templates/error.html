@@ -25,7 +25,13 @@
             <div class="card-body">
                 <!-- Card Text -->
                 <p class="card-text">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam fuga, cupiditate temporibus magnam voluptatibus eaque laudantium, maxime nemo est iste voluptate veniam sequi optio nesciunt!
+                    <!-- Display Message -->
+                    <span th:if="${error != null}">
+                    <div class="alert alert-danger text-center border border-danger">
+                        <b><span th:text="${error}"></span></b>
+                    </div>
+                </span>
+                    <!-- End Of Display Message -->
                 </p>
                 <!-- End of Card Text -->
                 <hr>

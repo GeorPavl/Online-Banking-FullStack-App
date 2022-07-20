@@ -16,12 +16,12 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
 
     @Override
-    public void registerUser(User user) {
-        userRepository.save(user);
+    public User registerUser(User user) {
+        return userRepository.save(user);
     }
 
     @Override
-    public void verifyAccount(String token, String code) {
+    public User verifyAccount(String token, String code) {
         Optional<User> optionalUser = userRepository.findByTokenAndCode(token, code);
         if (optionalUser.isEmpty()) {
             throw new RuntimeException("This account didn't found for verification");
@@ -34,6 +34,11 @@ public class UserServiceImpl implements UserService{
         updatedUser.setVerified_at(LocalDate.now());
         updatedUser.setUpdated_at(LocalDateTime.now());
 
-        userRepository.save(updatedUser);
+        return userRepository.save(updatedUser);
+    }
+
+    @Override
+    public String checkToken(String token) {
+        return userRepository.checkToken(token);
     }
 }
