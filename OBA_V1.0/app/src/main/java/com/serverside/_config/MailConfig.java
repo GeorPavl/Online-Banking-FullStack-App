@@ -20,7 +20,7 @@ public class MailConfig {
         emailConfig.setHost("smtp.gmail.com");
         emailConfig.setPort(587);
         emailConfig.setUsername("georpavloglou@gmail.com");
-        emailConfig.setPassword("25031914aris!@#");
+        emailConfig.setPassword("mhnriidazfaruatr");
 
         return emailConfig;
     }

@@ -26,17 +26,17 @@
                 <!-- End of Form Header -->
 
                 <!-- Display Message -->
-                <th:if test="${requestScope.passwordMisMatch != null}">
+                <p th:if="${passwordMisMatch != null}">
                     <div class="alert alert-danger text-center border border-danger">
-                        <b>${requestScope.passwordMisMatch}</b>
+                <b><span th:text="${passwordMisMatch}"></span></b>
                     </div>
                 </th:if>
                 <!-- End Of Display Message -->
 
                 <!-- Display Message -->
-                <th:if test="${requestScope.success != null}">
+                <p th:if="${success != null}">
                     <div class="alert alert-success text-center border border-success">
-                        <b>${requestScope.success}</b>
+                        <b><span th:text="${success}"></span></b>
                     </div>
                 </th:if>
                 <!-- End Of Display Message -->
