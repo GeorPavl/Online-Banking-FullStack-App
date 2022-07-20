@@ -22,18 +22,20 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("registerUser")User user, BindingResult bindingResult,
-                           @RequestParam("first_name") String first_name,
-                           @RequestParam("last_name") String last_name,
+                           @RequestParam("firstName") String firstName,
+                           @RequestParam("lastName") String lastName,
                            @RequestParam("email") String email,
                            @RequestParam("password") String password,
-                           @RequestParam("confirm_password") String confirm_password,
+                           @RequestParam("confirmPassword") String confirmPassword,
                            Model model) {
         // Check for errors
-        if (bindingResult.hasErrors() && confirm_password.isEmpty()) {
+        if (bindingResult.hasErrors() && confirmPassword.isEmpty()) {
+
             model.addAttribute("confirm_pass", "The 'Confirm Password' field is required.");
             return "register";
         }
 
+<<<<<<< HEAD
         if (!password.equals(confirm_password)) {
             model.addAttribute("pass_match", "Passwords don't match.");
             return "register";
@@ -51,6 +53,8 @@ public class AuthenticationController {
         // TODO: 20/7/2022 Return to register page
 
 
+=======
+>>>>>>> master
         return "register";
     }
 }

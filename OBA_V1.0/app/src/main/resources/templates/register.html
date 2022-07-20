@@ -26,18 +26,22 @@
                 <!-- End of Form Header -->
 
                 <!-- Registration Form -->
-                <form action="" class="reg-form">
+                <form th:action="@{/register}" method="post" th:object="${registerUser}" class="reg-form">
                     <!-- Row -->
                     <div class="row">
                         <!-- Form Group -->
                         <div class="form-group col">
-                            <input type="text" name="first_name" class="form-control form-control-lg" placeholder="Enter first name">
+                            <input type="text" name="first_name" th:field="*{firstName}" class="form-control form-control-lg" placeholder="Enter first name">
+                            <p th:if="${#fields.hasErrors('firstName')}"
+                               th:errors="*{firstName}" class="error-message"></p>
                         </div>
                         <!-- End of Form Group -->
 
                         <!-- Form Group -->
                         <div class="form-group col">
-                            <input type="text" name="last_name" class="form-control form-control-lg" placeholder="Enter last name">
+                            <input type="text" name="last_name" th:field="*{lastName}" class="form-control form-control-lg" placeholder="Enter last name">
+                            <p th:if="${#fields.hasErrors('lastName')}"
+                               th:errors="*{lastName}" class="error-message"></p>
                         </div>
                         <!-- End of Form Group -->
                     </div>
@@ -45,7 +49,9 @@
 
                     <!-- Form Group -->
                     <div class="form-group col">
-                        <input type="email" name="email" class="form-control form-control-lg" placeholder="Enter email">
+                        <input type="email" name="email" th:field="*{email}" class="form-control form-control-lg" placeholder="Enter email">
+                        <p th:if="${#fields.hasErrors('email')}"
+                           th:errors="*{email}" class="error-message"></p>
                     </div>
                     <!-- End of Form Group -->
 
@@ -53,13 +59,16 @@
                     <div class="row">
                         <!-- Form Group -->
                         <div class="form-group col">
-                            <input type="password" name="password" class="form-control form-control-lg" placeholder="Enter password">
+                            <input type="password" name="password" th:field="*{password}" class="form-control form-control-lg" placeholder="Enter password">
+                            <p th:if="${#fields.hasErrors('password')}"
+                               th:errors="*{password}" class="error-message"></p>
                         </div>
                         <!-- End of Form Group -->
 
                         <!-- Form Group -->
                         <div class="form-group col">
-                            <input type="password" name="confirm_password" class="form-control form-control-lg" placeholder="Confirm password">
+                            <input type="password" name="confirmPassword" class="form-control form-control-lg" placeholder="Confirm password">
+                            <small th:text="${confirm_pass}" class="error-message"></small>
                         </div>
                         <!-- End of Form Group -->
                     </div>
