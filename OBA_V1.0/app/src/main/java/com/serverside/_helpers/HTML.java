@@ -4,7 +4,7 @@ public class HTML {
 
     // TODO: 20/7/2022 Check email's template CSS 
     public static String htmlEmailTemplate(String token, String code) {
-        String url = "http://127.0.0.1:8082/verify?token" + token + "&code=" + code;
+        String url = "http://127.0.0.1:8082/verify?token=" + token + "&code=" + code;
         String emailTemplate =
                 "<!DOCTYPE html>\n" +
                 "<html lang='en'>\n" +

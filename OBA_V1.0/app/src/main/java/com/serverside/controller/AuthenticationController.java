@@ -77,4 +77,13 @@ public class AuthenticationController {
         model.addAttribute("success", successMessage);
         return "register";
     }
+
+    @GetMapping("/verify")
+    public String getVerifyPage(@RequestParam("token") String token, @RequestParam("code") String code, Model model) {
+        model.addAttribute("PageTitle", "Verify");
+
+        userService.verifyAccount(token, code);
+        model.addAttribute("success", "Account Verified Successfully, please proceed to Log In!");
+        return "login";
+    }
 }

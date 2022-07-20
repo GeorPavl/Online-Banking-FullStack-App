@@ -25,6 +25,14 @@
                 </h1>
                 <!-- End of Form Header -->
 
+                <!-- Display Message -->
+                <span th:if="${success != null}">
+                    <div class="alert alert-success text-center border border-success">
+                        <b><span th:text="${success}"></span></b>
+                    </div>
+                </span>
+                <!-- End Of Display Message -->
+
                 <!-- Login Form -->
                 <form action="" class="login-form">
 

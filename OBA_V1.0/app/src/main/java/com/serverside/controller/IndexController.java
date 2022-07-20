@@ -25,10 +25,4 @@ public class IndexController {
         model.addAttribute("PageTitle", "Error");
         return "error";
     }
-
-    @GetMapping("/verify")
-    public String getVerifyPage(Model model) {
-        model.addAttribute("PageTitle", "Verify");
-        return "login";
-    }
 }
