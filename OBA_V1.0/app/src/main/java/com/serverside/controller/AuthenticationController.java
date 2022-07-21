@@ -25,6 +25,8 @@ public class AuthenticationController {
     @Autowired
     private UserService userService;
 
+    /** Controllers for Registration Process */
+
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         model.addAttribute("PageTitle", "Register");
@@ -92,5 +94,32 @@ public class AuthenticationController {
 
         model.addAttribute("success", "Account Verified Successfully, please proceed to Log In!");
         return "login";
+    }
+
+    /** Controllers for Login/Authentication Process */
+
+    // TODO: 19/7/2022 Fix css library "registration.css". Same CSS styles but different file name.
+    @GetMapping("/login")
+    public String getLoginPage(Model model) {
+        model.addAttribute("PageTitle", "Login");
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestParam("email") String email,
+                        @RequestParam("password") String password,
+                        @RequestParam("_token") String token,
+                        Model model) {
+
+        // TODO: 21/7/2022 VALIDATE INPUT FIELDS / FORM DATA 
+        if (email.isEmpty() || email == null || password.isEmpty() || password == null) {
+            model.addAttribute("error", "Username or Password can't be empty!");
+            return "login";
+        }
+        // TODO: 21/7/2022 CHECK IF EMAIL EXISTS 
+
+        // TODO: 21/7/2022 CHECK IF VALUE IS NOT NULL
+
+        return "dashboard";
     }
 }

@@ -13,13 +13,6 @@ public class IndexController {
         return "index";
     }
 
-    // TODO: 19/7/2022 Fix css library "registration.css". Same CSS styles but different file name.
-    @GetMapping("/login")
-    public String getLoginPage(Model model) {
-        model.addAttribute("PageTitle", "Login");
-        return "login";
-    }
-
     @GetMapping("/error")
     public String getErrorPage(Model model) {
         model.addAttribute("PageTitle", "Error");

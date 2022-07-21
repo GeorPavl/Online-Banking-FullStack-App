@@ -12,8 +12,6 @@ public class HTML {
                 "    <meta charset='UTF-8'>\n" +
                 "    <meta http-equiv='X-UA-Compatible' content='IE=edge'>\n" +
                 "    <meta name='viewport' content='width=device-width, initial-scale=1.0'>\n" +
-                "    <link rel='stylesheet' href='css/email.css'>\n" +
-                "    <link href=https://fonts.googleapis.com/css?family=Comfortaa rel='stylesheet' />" +
                 "    <title>Document</title>\n" +
                 "    <style>\n" +
                 "        *{\n" +

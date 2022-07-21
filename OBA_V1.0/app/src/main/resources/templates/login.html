@@ -33,21 +33,35 @@
                 </span>
                 <!-- End Of Display Message -->
 
+                <!-- Display Message -->
+                <span th:if="${error != null}">
+                    <div class="alert alert-danger text-center border border-danger">
+                        <b><span th:text="${error}"></span></b>
+                    </div>
+                </span>
+                <!-- End Of Display Message -->
+
                 <!-- Login Form -->
-                <form action="" class="login-form">
+                <form th:action="@{/login}" method="post" class="login-form">
 
                     <!-- Form Group -->
                     <div class="form-group col">
-                        <input type="email" name="email" class="form-control form-control-lg" placeholder="Enter email">
+                        <input type="email" name="email" th:name="email" class="form-control form-control-lg" placeholder="Enter email">
                     </div>
                     <!-- End of Form Group -->
 
 
                     <!-- Form Group -->
                     <div class="form-group col">
-                        <input type="password" name="password" class="form-control form-control-lg" placeholder="Enter password">
+                        <input type="password" name="password" th:name="password" class="form-control form-control-lg" placeholder="Enter password">
                     </div>
                     <!-- End of Form Group -->
+
+                    <!-- From Group -->
+                    <div class="form-group col">
+                        <input type="hidden" name="_token" th:name="_token"/>
+                    </div>
+                    <!-- End Of From Group -->
 
                     <!-- Form Group -->
                     <div class="form-group col">
