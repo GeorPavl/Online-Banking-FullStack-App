@@ -9,4 +9,8 @@ public interface UserService {
     User verifyAccount(String token, String code);
 
     String checkToken(String token);
+
+    String checkEmail(String email);
+
+    String checkPassword(String email);
 }

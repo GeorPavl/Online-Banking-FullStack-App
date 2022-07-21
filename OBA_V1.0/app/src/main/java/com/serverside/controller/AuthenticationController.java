@@ -116,10 +116,24 @@ public class AuthenticationController {
             model.addAttribute("error", "Username or Password can't be empty!");
             return "login";
         }
-        // TODO: 21/7/2022 CHECK IF EMAIL EXISTS 
+        // TODO: 21/7/2022 CHECK IF EMAIL EXISTS
+        String emailInDatabase = userService.checkEmail(email);
+        // Check if email exists
+        if (emailInDatabase != null && !emailInDatabase.isEmpty()) {
+            // Get password from database
+            String passwordInDatabase = userService.checkPassword(email);
+            // Validate password
+            if (!BCrypt.checkpw(password, passwordInDatabase)) {
+                model.addAttribute("error", "Incorrect username or password!");
+            } else {
+                model.addAttribute("success", "Login Successful!");
+            }
+            return "login";
+        } else {
+            model.addAttribute("error", "Something went wrong, please contact support!");
+            return "error";
+        }
 
         // TODO: 21/7/2022 CHECK IF VALUE IS NOT NULL
-
-        return "dashboard";
     }
 }

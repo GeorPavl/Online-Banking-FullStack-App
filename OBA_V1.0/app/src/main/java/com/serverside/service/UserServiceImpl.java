@@ -41,4 +41,14 @@ public class UserServiceImpl implements UserService{
     public String checkToken(String token) {
         return userRepository.checkToken(token);
     }
+
+    @Override
+    public String checkEmail(String email) {
+        return userRepository.getUserEmail(email);
+    }
+
+    @Override
+    public String checkPassword(String email) {
+        return userRepository.getUserPassword(email);
+    }
 }
