@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet" />
+        <link th:href="@{/css/fontawesome/css/all.css}" rel="stylesheet" />
+        <link th:href="@{/css/default.css}" rel="stylesheet" />
+        <link th:href="@{https://fonts.googleapis.com/css?family=Comfortaa}" rel="stylesheet" />
+        <title th:text="${PageTitle}"></title>
+    </head>
 
-</body>
+    <body class="d-flex align-items-center justify-content-center">
+        <p th:text="${user.email}"></p>
+    </body>
 </html>

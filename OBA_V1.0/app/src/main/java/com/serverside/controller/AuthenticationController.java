@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Random;
 
@@ -109,14 +110,17 @@ public class AuthenticationController {
     public String login(@RequestParam("email") String email,
                         @RequestParam("password") String password,
                         @RequestParam("_token") String token,
-                        Model model) {
+                        Model model, HttpSession session) {
 
-        // TODO: 21/7/2022 VALIDATE INPUT FIELDS / FORM DATA 
+        // TODO: 21/7/2022 Αντί να έχω τις μεθόδους checkEmail, checkPassword κτλ μπορώ να "φέρω" το POJO του User
+        //  και να πάρω τις πληροφορίες που θέλω από τα fields του.
+        
+        // VALIDATE INPUT FIELDS / FORM DATA
         if (email.isEmpty() || email == null || password.isEmpty() || password == null) {
             model.addAttribute("error", "Username or Password can't be empty!");
             return "login";
         }
-        // TODO: 21/7/2022 CHECK IF EMAIL EXISTS
+        // CHECK IF EMAIL EXISTS
         String emailInDatabase = userService.checkEmail(email);
         // Check if email exists
         if (emailInDatabase != null && !emailInDatabase.isEmpty()) {
@@ -125,15 +129,27 @@ public class AuthenticationController {
             // Validate password
             if (!BCrypt.checkpw(password, passwordInDatabase)) {
                 model.addAttribute("error", "Incorrect username or password!");
-            } else {
-                model.addAttribute("success", "Login Successful!");
+                return "login";
             }
-            return "login";
         } else {
             model.addAttribute("error", "Something went wrong, please contact support!");
             return "error";
         }
 
-        // TODO: 21/7/2022 CHECK IF VALUE IS NOT NULL
+        // TODO: 21/7/2022 CHECK IF USER ACCOUNT IS VERIFIED
+        int verified = userService.isVerified(emailInDatabase);
+        if (verified != 1) {
+            // TODO: 21/7/2022 Να αλλάξω όλα τα μηνύματα όπως το παρακάτω (με τη χρήση μεταβλητής)
+            String msg = "This Account is not yet verified, please check email and verify account!";
+            model.addAttribute("error", msg);
+            return "login";
+        }
+
+        // TODO: 21/7/2022  PROCEED TO LOG USER IN
+        User user = userService.getUserDetails(emailInDatabase);
+        session.setAttribute("user", user);
+        session.setAttribute("token", token);
+        session.setAttribute("authenticated", true);
+        return "redirect:/app/dashboard";
     }
 }

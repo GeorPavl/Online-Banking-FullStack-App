@@ -51,4 +51,18 @@ public class UserServiceImpl implements UserService{
     public String checkPassword(String email) {
         return userRepository.getUserPassword(email);
     }
+
+    @Override
+    public int isVerified(String email) {
+        return userRepository.isVerified(email);
+    }
+
+    @Override
+    public User getUserDetails(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if (optionalUser == null) {
+            throw new RuntimeException("Did not found user with email: " + email);
+        }
+        return optionalUser.get();
+    }
 }

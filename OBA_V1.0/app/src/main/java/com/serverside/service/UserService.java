@@ -13,4 +13,8 @@ public interface UserService {
     String checkEmail(String email);
 
     String checkPassword(String email);
+
+    int isVerified(String email);
+
+    User getUserDetails(String email);
 }
