@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="design/css/fontawesome/css/all.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Comfortaa">
         <link rel="stylesheet" href="design/css/main.css">
+        <script src="design/js/bootstrap.bundle.js"></script>
         <title>Dashboard</title>
     </head>
 
@@ -47,5 +48,49 @@
         </div>
         <!-- End of Main Page Header -->
 
+        <!-- Container -->
+        <div class="container d-flex">
+            <!-- Transact Offcanvas-->
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                <div class="offcanvas-header">
+                  <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <!-- Transact Body-->
+                <div class="offcanvas-body">
+                    Transaction Form Container
+                </div>
+                <!-- End of Transact Body -->
+            </div>
+            <!-- End of Transact Offcanvas-->
+
+            <!-- Right Side Offcanvas: Account form container -->
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    Accounts Form Container
+                </div>
+            </div>
+            <!-- End of Right Side Offcanvas: Account form container-->
+        </div>
+        <!-- End of Container-->
+
+        <!-- Container -->
+        <div class="container d-flex">
+            <!-- Right Side Offcanvas Button -->
+            <button id="add-acount-btn" class="btn btn-lg shadow" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                <i class="fa fa-credit-card"></i> Add New Account 
+            </button>           
+            <!-- End of Right Side Offcanvas Button -->
+
+            <!-- Transact Offcanvas Button -->
+            <button id="transact-btn" class="btn btn-lg shadow ms-auto" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                <i class="fa fa-wallet"></i> Transact
+            </button>
+            <!-- End of Transact Offcanvas Button -->
+        </div>
     </body>
 </html>

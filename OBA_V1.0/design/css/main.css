@@ -38,3 +38,16 @@ body {
 .display-name {
     font-weight: 600;
 }
+
+/* Transact Button */
+#transact-btn {
+    background-color: #ffb114;
+    border: 1px solid #543800;
+}
+
+/* Add Account Button */
+#add-acount-btn {
+    background-color: #ff4e00;
+    border: 1px solid #882B00;
+    color: white;
+}
