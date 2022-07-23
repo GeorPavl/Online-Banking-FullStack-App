@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+
+    </head>
+
+    <body>
+
+        <!-- Main Page Header -->
+        <div th:fragment="header" class="main-page-header mb-3 bg-primary">
+            <!-- Container -->
+            <div class="container d-flex align-items-center">
+                <!-- Company Name -->
+                <div class="company-name">
+                    Easy-Way Bank
+                </div>
+                <!-- End of Company Name-->
+
+                <!-- Navigation -->
+                <nav class="navigation">
+                    <li><a href="">Dashboard</a></li>
+                    <li><a href="">Payment History</a></li>
+                    <li><a href="">Transaction History</a></li>
+                </nav>
+                <!-- End of Navigation -->
+
+                <!-- Display Name -->
+                <div class="display-name ms-auto">
+                    <i class="fa fa-circle text-success me-2 shadow-sm"></i>Welcome: <span th:text="${user.firstName}"></span>
+                </div>
+                <!-- End of Display Name -->
+
+                <!-- Log Out Button-->
+                <a href="" class="btn btn-sm text-white ms-2">
+                    <i class="fa fa-sign-out me-2"></i>Sign Out
+                </a>
+                <!-- End of Log Out Button -->
+            </div>
+            <!-- End of Container -->
+        </div>
+        <!-- End of Main Page Header -->
+
+    </body>
+
+</html>

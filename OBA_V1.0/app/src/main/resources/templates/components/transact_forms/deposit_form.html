@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+<body>
+
+    <!-- Deposit Card -->
+    <div th:fragment="deposit_form" class="card deposit-card">
+        <!-- Card Body -->
+        <div class="card-body">
+            <!-- Deposit Form -->
+            <div action="" class="form deposit-form">
+                <!-- Form Group -->
+                <div class="form-group mb-2">
+                    <label for="">Deposit Ammount</label>
+                    <input type="text" name="deposit_ammount" class="form-control" placeholder="Enter Deposit Ammount">
+                </div>
+                <!-- End of Form Group -->
+
+                <!-- Form Group -->
+                <div class="form-group mb-2">
+                    <label for="">Select Account</label>
+                    <!-- Select Account Option -->
+                    <select name="account_id" id="" class="form-control">
+                        <option value="">-- Select Account --</option>
+                        <option value=""></option>
+                    </select>
+                    <!-- Select Account Option -->
+                </div>
+                <!-- End of Form Group-->
+
+                <!-- Form Group -->
+                <div class="form-group my-2">
+                    <button id="" class="btn btn-md transact-btn">Deposit</button>
+                </div>
+                <!-- End of Form Group -->
+            </div>
+            <!-- End of Deposit Form -->
+        </div>
+        <!-- End of Card Body -->
+    </div>
+    <!-- End of Deposit Card -->
+
+</body>
+
+</html>

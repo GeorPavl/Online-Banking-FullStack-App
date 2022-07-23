@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService{
@@ -16,7 +17,11 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public List<Account> getUserAccounts(int user_id) {
-        return getUserAccounts(user_id);
+        Optional<List<Account>> optionalAccounts = accountRepository.getUserAccountsById(user_id);
+        if (optionalAccounts.isEmpty()) {
+            throw new RuntimeException("Did not found accounts for this user id: " + user_id);
+        }
+        return optionalAccounts.get();
     }
 
     @Override

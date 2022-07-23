@@ -6,12 +6,39 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet" />
         <link th:href="@{/css/fontawesome/css/all.css}" rel="stylesheet" />
-        <link th:href="@{/css/default.css}" rel="stylesheet" />
+        <link th:href="@{/css/main.css}" rel="stylesheet" />
         <link th:href="@{https://fonts.googleapis.com/css?family=Comfortaa}" rel="stylesheet" />
         <title th:text="${PageTitle}"></title>
     </head>
 
-    <body class="d-flex align-items-center justify-content-center">
-        <p th:text="${user.email}"></p>
+    <body>
+
+        <!-- Page Header -->
+        <div th:insert="components/incl/header.html :: header"> </div>
+        <!-- End of Page Header -->
+
+        <!-- Container Offcanvas -->
+        <div class="container d-flex">
+            <div th:insert="components/transact_offcanvas.html :: transact_offcanvas"> </div>
+            <div th:insert="components/add_account_offcanvas.html :: add_account_offcanvas"> </div>
+        </div>
+        <!-- End of Container Offcanvas -->
+
+        <!-- Display Accounts -->
+        <th:block th:if="${userAccounts.size > 0}">
+            <div th:insert="components/accounts_display.html :: accounts_display"> </div>
+        </th:block>
+        <!-- Don't Display Accounts -->
+        <th:block th:if="${userAccounts.size < 1}">
+            <div th:insert="components/no_accounts_display.html :: no_accounts_display"> </div>
+        </th:block>
+        <!-- Footer -->
+<!--        <div th:insert="components/incl/footer.html :: footer"> </div>-->
+        <!-- End of Footer -->
+
+
+        <script th:src="@{/js/bootstrap.bundle.js}"></script>
+        <script th:src="@{/js/main.js}"></script>
+
     </body>
 </html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+
+    </head>
+
+    <body>
+
+        <!-- No Accounts Container -->
+        <div th:fragment="no_accounts_display" class="container">
+            <!-- Card No Accounts -->
+            <div class="card no-accounts-card">
+                <!-- Card Body -->
+                <div class="card-body">
+                    <!-- Card Title -->
+                    <h1 class="card-title">
+                        <i class="fas fa-ban text-danger"></i> No Registered Accounts
+                    </h1>
+                    <!-- End of Card Title-->
+                    <hr>
+                    <!-- Card Text -->
+                    <div class="card-text">
+                        You currently do not have any registered accounts. <br>
+                        Please click below to register / add a new account.
+                    </div>
+                    <!-- End of Card Text-->
+
+                    <!-- Add New Account Button -->
+                    <button id="" class="btn btn-primary btn-lg shadow" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <i class="fa fa-credit-card"></i> Add New Account
+                    </button>
+                    <!-- End of Add New Account Button -->
+                </div>
+                <!-- End of Card Body -->
+            </div>
+            <!-- End of Card No Accounts -->
+        </div>
+        <!-- End of No Accounts Container -->
+
+    </body>
+
+</html>
