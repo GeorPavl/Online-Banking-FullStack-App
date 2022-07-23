@@ -41,6 +41,14 @@
                 </span>
                 <!-- End Of Display Message -->
 
+                <!-- Display Message -->
+                <span th:if="${logged_out != null}">
+                    <div class="alert alert-info text-center border border-info">
+                        <b><span th:text="${logged_out}"></span></b>
+                    </div>
+                </span>
+                <!-- End Of Display Message -->
+
                 <!-- Login Form -->
                 <form th:action="@{/login}" method="post" class="login-form">
 
