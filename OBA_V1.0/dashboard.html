@@ -202,7 +202,7 @@
                     <div class="card withdraw-card">
                         <!-- Card Body -->
                         <div class="card-body">
-                            <!-- Deposit Form -->
+                            <!-- Withdraw Form -->
                             <div action="" class="form withdraw-form">
                                 <!-- Form Group -->
                                 <div class="form-group mb-2">
@@ -233,7 +233,7 @@
                         </div>
                         <!-- End of Card Body -->
                     </div>
-                    <!-- End of Deposit Card -->
+                    <!-- End of Withdraw Card -->
                 </div>
                 <!-- End of Transact Body -->
             </div>
@@ -242,11 +242,36 @@
             <!-- Right Side Offcanvas: Account form container -->
             <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                 <div class="offcanvas-header">
-                    <h5 class="offcanvas-title" id="offcanvasRightLabel">Offcanvas right</h5>
+                    <h5 class="offcanvas-title text-white" id="offcanvasRightLabel">Offcanvas right</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                    Accounts Form Container
+                    <!-- Accounts Form Card -->
+                    <div class="card">
+                        <!-- Card Body -->
+                        <form action="" class="add-account-form">
+                            <!-- Form Group -->
+                            <div class="form-group">
+                                <label for="">Enter Account Name</label>
+                                <input type="text" name="account_name" class="form-control" placeholder="Enter Account Name">
+                            </div>
+                            <!-- End of Form Group -->
+
+                            <!-- Form Group -->
+                            <div class="form-group mb-3">
+                                <label for="">Slect Account Type</label>
+                                <select name="account_type" id="" class="form-control">
+                                    <option value="">-- Select Account Type --</option>
+                                    <option value="check">Check</option>
+                                    <option value="savings">Savings</option>
+                                    <option value="business">Business</option>
+                                </select>
+                            </div>
+                            <!-- End of Form Group -->
+                        </form>
+                        <!-- End of Card Body -->
+                    </div>
+                    <!-- End of Accounts Form Card -->
                 </div>
             </div>
             <!-- End of Right Side Offcanvas: Account form container-->
