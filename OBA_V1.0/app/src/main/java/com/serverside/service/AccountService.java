@@ -12,4 +12,8 @@ public interface AccountService {
     BigDecimal getTotalBalance(int user_id);
 
     void createAccount(int user_id, String account_number, String account_name, String account_type);
+
+    double getAccountBalance(int user_id, int account_id);
+
+    void changeAccountBalanceById(double new_balance, int account_id);
 }

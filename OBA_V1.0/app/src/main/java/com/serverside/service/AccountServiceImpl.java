@@ -33,4 +33,14 @@ public class AccountServiceImpl implements AccountService{
     public void createAccount(int user_id, String account_number, String account_name, String account_type) {
         accountRepository.createBankAccount(user_id, account_number, account_name, account_type);
     }
+
+    @Override
+    public double getAccountBalance(int user_id, int account_id) {
+        return accountRepository.getAccountBalance(user_id, account_id);
+    }
+
+    @Override
+    public void changeAccountBalanceById(double new_balance, int account_id) {
+        accountRepository.changeAccountBalanceById(new_balance, account_id);
+    }
 }

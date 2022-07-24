@@ -11,17 +11,17 @@
         <!-- Card Body -->
         <div class="card-body">
             <!-- Deposit Form -->
-            <div action="" class="form deposit-form">
+            <form th:action="@{/transact/deposit}" method="post" class="form deposit-form">
                 <!-- Form Group -->
                 <div class="form-group mb-2">
-                    <label for="">Deposit Ammount</label>
-                    <input type="text" name="deposit_ammount" class="form-control" placeholder="Enter Deposit Ammount">
+                    <label>Deposit Ammount</label>
+                    <input type="text" name="deposit_amount" class="form-control" placeholder="Enter Deposit Ammount">
                 </div>
                 <!-- End of Form Group -->
 
                 <!-- Form Group -->
                 <div class="form-group mb-2">
-                    <label for="">Select Account</label>
+                    <label>Select Account</label>
                     <!-- Select Account Option -->
                     <select name="account_id" class="form-control">
                         <option value="">-- Select Account --</option>
@@ -35,10 +35,10 @@
 
                 <!-- Form Group -->
                 <div class="form-group my-2">
-                    <button id="" class="btn btn-md transact-btn">Deposit</button>
+                    <button class="btn btn-md transact-btn">Deposit</button>
                 </div>
                 <!-- End of Form Group -->
-            </div>
+            </form>
             <!-- End of Deposit Form -->
         </div>
         <!-- End of Card Body -->
