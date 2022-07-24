@@ -16,6 +16,6 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     @Query(value = "SELECT * FROM accounts WHERE user_id = :user_id", nativeQuery = true)
     Optional<List<Account>> getUserAccountsById(@Param("user_id")int user_id);
 
-    @Query(value = "SELECT balance FROM accounts WHERE user_id = :user_id", nativeQuery = true)
+    @Query(value = "SELECT sum(balance) FROM accounts WHERE user_id = :user_id", nativeQuery = true)
     BigDecimal getTotalBalance(int user_id);
 }
