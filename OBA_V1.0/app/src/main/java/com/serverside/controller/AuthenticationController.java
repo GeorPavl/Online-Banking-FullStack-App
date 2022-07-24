@@ -153,17 +153,11 @@ public class AuthenticationController {
         return "redirect:/app/dashboard";
     }
 
-<<<<<<< HEAD
-    @GetMapping("/logoout")
-    public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
-        session.invalidate();
-        redirectAttributes.addFlashAttribute("logged_out", "Logged out successfully");
-=======
     @GetMapping("/logout")
     public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
         session.invalidate();
         redirectAttributes.addFlashAttribute("logged_out", "Logged out successfully!");
->>>>>>> dev-branch
+
         return "redirect:/login";
     }
 }

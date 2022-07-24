@@ -23,9 +23,11 @@
                 <div class="form-group mb-2">
                     <label for="">Select Account</label>
                     <!-- Select Account Option -->
-                    <select name="account_id" id="" class="form-control">
+                    <select name="account_id" class="form-control">
                         <option value="">-- Select Account --</option>
-                        <option value=""></option>
+                        <div th:if="${userAccounts != null}">
+                            <option th:each="a : ${userAccounts}" th:value="${a.account_id}" th:text="${a.account_name}"></option>
+                        </div>
                     </select>
                     <!-- Select Account Option -->
                 </div>
