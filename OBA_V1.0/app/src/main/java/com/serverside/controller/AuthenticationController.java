@@ -70,8 +70,7 @@ public class AuthenticationController {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
         // TODO: 20/7/2022 Register User 
-        User newUser = new User(firstName, lastName, email, hashedPassword, token, Integer.toString(code));
-        userService.registerUser(newUser);
+        userService.registerUser(firstName, lastName, email, hashedPassword, token, code);
 
         // TODO: 20/7/2022 Send Mail notification 
         MailMessenger.htmlEmailMessenger("georpavloglou@gmail.com", email, "Account Verification", emailBody);

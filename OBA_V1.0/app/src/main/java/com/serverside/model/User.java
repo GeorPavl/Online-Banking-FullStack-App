@@ -43,16 +43,22 @@ public class User {
     @NotBlank(message = "The 'Password' field is required.")
     private String password;
 
+    @Column(name = "token")
     private String token;
 
+    @Column(name = "code")
     private String code;
 
+    @Column(name = "verified")
     private int verified;
 
+    @Column(name = "verified_at")
     private LocalDate verified_at;
 
+    @Column(name = "created_at")
     private LocalDateTime created_at;
 
+    @Column(name = "updated_at")
     private LocalDateTime updated_at;
 
     public User(String firstName, String lastName, String email, String hashedPassword, String token, String code) {
