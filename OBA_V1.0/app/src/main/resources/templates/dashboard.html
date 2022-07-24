@@ -25,17 +25,17 @@
             <!-- Display Message -->
             <span th:if="${success != null}">
                 <div class="alert alert-success text-center border border-success">
-                    <b><span th:text="${success}"></span></b>
+                    <b th:text="${success}"></b>
                 </div>
             </span>
             <!-- End Of Display Message -->
 
             <!-- Display Message -->
-            <span th:if="${error != null}">
+            <div th:if="${error != null}">
                 <div class="alert alert-danger text-center border border-danger">
-                    <b><span th:text="${error}"></span></b>
+                    <b th:text="${error}"></b>
                 </div>
-            </span>
+            </div>
             <!-- End Of Display Message -->
         </div>
         <!-- End of Container Offcanvas -->

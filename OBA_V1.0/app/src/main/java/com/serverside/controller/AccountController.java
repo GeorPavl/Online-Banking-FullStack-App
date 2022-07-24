@@ -27,10 +27,14 @@ public class AccountController {
                                 HttpSession session) {
 
         // TODO: 24/7/2022 Check for empty strings
-        if (accountName == null) {
+        if (accountName == null || accountName.isEmpty()) {
             redirectAttributes.addFlashAttribute("error", "Account Name Cannot Be Empty!");
             return "redirect:/app/dashboard";
+        } else if (accountType == null || accountType.isEmpty()) {
+            redirectAttributes.addFlashAttribute("error", "Account Type Cannot Be Empty!");
+            return "redirect:/app/dashboard";
         }
+
         // TODO: 24/7/2022 Get logged in user
         User user = (User)session.getAttribute("user");
 
