@@ -30,7 +30,7 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public Account createAccount(Account account) {
-        return accountRepository.save(account);
+    public void createAccount(int user_id, String account_number, String account_name, String account_type) {
+        accountRepository.createBankAccount(user_id, account_number, account_name, account_type);
     }
 }

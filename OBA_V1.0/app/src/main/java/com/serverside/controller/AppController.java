@@ -25,6 +25,7 @@ public class AppController {
         // Get the details of logged in User
         User user = (User)session.getAttribute("user");
 
+        // TODO: 24/7/2022 Fix Accordion Collapse 
         // Get the accounts of logged in User
         List<Account> accounts = accountService.getUserAccounts(user.getId());
 

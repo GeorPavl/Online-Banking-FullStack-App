@@ -16,8 +16,8 @@ public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
 
     @Override
-    public User registerUser(User user) {
-        return userRepository.save(user);
+    public void registerUser(String firstName, String lastName, String email, String password, String token, int code) {
+        userRepository.registerUser(firstName, lastName, email, password, token, code);
     }
 
     @Override

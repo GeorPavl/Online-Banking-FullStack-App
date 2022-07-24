@@ -1,7 +1,6 @@
 package com.serverside.controller;
 
 import com.serverside._helpers.GenAccountNumber;
-import com.serverside.model.Account;
 import com.serverside.model.User;
 import com.serverside.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +41,7 @@ public class AccountController {
         int accountNumber = GenAccountNumber.generateAccountNumber();
 
         // TODO: 24/7/2022 Create Account
-        Account account = new Account(user.getId(), accountNumber, accountName, accountType);
-        accountService.createAccount(account);
+        accountService.createAccount(user.getId(), Integer.toString(accountNumber), accountName, accountType);
 
         // TODO: 24/7/2022 Set success message
         redirectAttributes.addFlashAttribute("success", "Account Created Successfully!");

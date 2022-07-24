@@ -11,5 +11,5 @@ public interface AccountService {
 
     BigDecimal getTotalBalance(int user_id);
 
-    Account createAccount(Account account);
+    void createAccount(int user_id, String account_number, String account_name, String account_type);
 }
