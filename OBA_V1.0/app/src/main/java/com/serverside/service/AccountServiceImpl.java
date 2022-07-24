@@ -28,4 +28,9 @@ public class AccountServiceImpl implements AccountService{
     public BigDecimal getTotalBalance(int user_id) {
         return accountRepository.getTotalBalance(user_id);
     }
+
+    @Override
+    public Account createAccount(Account account) {
+        return accountRepository.save(account);
+    }
 }

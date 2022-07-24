@@ -21,6 +21,22 @@
         <div class="container d-flex">
             <div th:insert="components/transact_offcanvas.html :: transact_offcanvas"> </div>
             <div th:insert="components/add_account_offcanvas.html :: add_account_offcanvas"> </div>
+
+            <!-- Display Message -->
+            <span th:if="${success != null}">
+                <div class="alert alert-success text-center border border-success">
+                    <b><span th:text="${success}"></span></b>
+                </div>
+            </span>
+            <!-- End Of Display Message -->
+
+            <!-- Display Message -->
+            <span th:if="${error != null}">
+                <div class="alert alert-danger text-center border border-danger">
+                    <b><span th:text="${error}"></span></b>
+                </div>
+            </span>
+            <!-- End Of Display Message -->
         </div>
         <!-- End of Container Offcanvas -->
 

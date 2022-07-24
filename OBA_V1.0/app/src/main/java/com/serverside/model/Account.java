@@ -40,4 +40,11 @@ public class Account {
 
     @Column(name = "updated_at")
     private LocalDateTime updated_at;
+
+    public Account(int id, int accountNumber, String accountName, String accountType) {
+        this.user_id = id;
+        this.account_number = Integer.toString(accountNumber);
+        this.account_name = accountName;
+        this.account_type = accountType;
+    }
 }
