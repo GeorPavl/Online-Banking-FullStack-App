@@ -1,0 +1,47 @@
+*{
+    box-sizing: border-box;
+}
+
+/* Main Body Styling */
+body {
+    height: 100vh;
+    background-image: url("../images/main_bg.png");
+    background-size: cover;
+    /* background-position: center center; */
+    background-repeat: no-repeat;
+    font-family: Comfortaa;
+}
+
+#sample-text-card {
+    height: fit-content;
+    margin: 25vh 100px;
+    color: white;
+    font-family: Comfortaa;
+}
+
+#sample-text-card h1 {
+    font-size: 65px;
+}
+
+#sample-text-card p {
+    font-size: 14px;
+}
+
+.button-wrapper a {
+    width: 200px;
+    padding: 15px;
+    color: white;
+    margin: 16px;
+    box-shadow: 0px 3px 6px rgb(0, 14, 53);
+}
+
+.register {
+    margin-right: 7px;
+    background-color: #ff4e00;
+    border: 1px solid #882B00;
+}
+
+.login {
+    background-color: #ffb114;
+    border: 1px solid #543800;
+}

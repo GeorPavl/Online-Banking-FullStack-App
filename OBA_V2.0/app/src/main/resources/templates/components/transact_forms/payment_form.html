@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+<body>
+
+    <!-- Payment Card -->
+    <div th:fragment="payment_form" class="card payment-card">
+        <!-- Card Body -->
+        <div class="card-body">
+            <!-- Payment Form -->
+            <form th:action="@{/transact/payment}" method="post" class="form payment-form">
+                <!-- Form Group -->
+                <div class="form-group mb-2">
+                    <label>Account Holder / Beneficiary</label>
+                    <input type="text" name="beneficiary" class="form-control" placeholder="Add Account Holder / Beneficiary name">
+                </div>
+                <!-- End of Form Group -->
+
+                <!-- Form Group -->
+                <div class="form-group mb-2">
+                    <label>Beneficiary Account Number</label>
+                    <input type="text" name="account_number" class="form-control" placeholder="Add Beneficiary Account Number">
+                </div>
+                <!-- End of Form Group -->
+
+                <!-- Form Group -->
+                <div class="form-group mb-2">
+                    <label>Select Account</label>
+                    <!-- Select Account Option -->
+                    <select name="account_id" class="form-control">
+                        <option value="">-- Select Account --</option>
+                        <div th:if="${userAccounts != null}">
+                            <option th:each="a : ${userAccounts}" th:value="${a.account_id}" th:text="${a.account_name}"></option>
+                        </div>
+                    </select>
+                    <!-- Select Account Option -->
+                </div>
+                <!-- End of Form Group-->
+
+                <!-- Form Group -->
+                <div class="form-group mb-2">
+                    <label>Reference</label>
+                    <input type="text" name="reference" class="form-control" placeholder="Enter Reference">
+                </div>
+                <!-- End of Form Group -->
+
+                <!-- Form Group -->
+                <div class="form-group mb-2">
+                    <label>Payment Amount</label>
+                    <input type="text" name="payment_amount" class="form-control" placeholder="Enter Payment Amount">
+                </div>
+                <!-- End of Form Group -->
+
+                <!-- Form Group -->
+                <div class="form-group mb-2">
+                    <button class="btn btn-md transact-btn">Pay</button>
+                </div>
+                <!-- End of Form Group -->
+            </form>
+            <!-- Payment Form -->
+        </div>
+        <!-- End of Card Body -->
+    </div>
+    <!-- End of Payment Card -->
+
+</body>
+
+</html>

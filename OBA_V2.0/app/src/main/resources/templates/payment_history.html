@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link th:href="@{/css/bootstrap/bootstrap.css}" rel="stylesheet" />
+        <link th:href="@{/css/fontawesome/css/all.css}" rel="stylesheet" />
+        <link th:href="@{/css/main.css}" rel="stylesheet" />
+        <link th:href="@{https://fonts.googleapis.com/css?family=Comfortaa}" rel="stylesheet" />
+        <title th:text="${PageTitle}"></title>
+    </head>
+
+    <body>
+
+            <!-- Page Header -->
+            <div th:insert="components/incl/header.html :: header"> </div>
+            <!-- End of Page Header -->
+
+            <!-- Container -->
+            <div class="container">
+
+                <!-- Card: Payment History Card -->
+                <div class="card">
+                    <!-- Card Header -->
+                    <div class="card-header">
+                        <i class="fas fa-credit-card me-2" aria-hidden="true"></i> Payment History
+                    </div>
+                    <!-- End Of Card Header -->
+
+                    <!-- Card Body -->
+                    <div class="card-body">
+                        <div th:if="${payment_history != null}">
+                            <!-- Payment History Table -->
+                            <table class="table text-center table-striped">
+                                <tr>
+                                    <th>Record Number</th>
+                                    <th>Beneficiary</th>
+                                    <th>Beneficiary Account Number</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Reference</th>
+                                    <th>Reason Code</th>
+                                    <th>Created at</th>
+                                </tr>
+                                <!-- Loop Through Payment History Records -->
+                                <tr th:each="payment: ${payment_history}">
+                                    <td th:text="${payment.payment_id}"></td>
+                                    <td th:text="${payment.beneficiary}"></td>
+                                    <td th:text="${payment.beneficiary_acc_no}"></td>
+                                    <td th:text="${payment.amount}"></td>
+                                    <td th:text="${payment.status}"></td>
+                                    <td th:text="${payment.reference_no}"></td>
+                                    <td th:text="${payment.reason_code}"></td>
+                                    <td th:text="${payment.created_at}"></td>
+                                </tr>
+                                <!-- End Of Loop Through Payment History Records -->
+                            </table>
+                            <!-- End Of Payment History Table -->
+                        </div>
+                    </div>
+                    <!-- End Of Card Body -->
+                </div>
+                <!-- End Of Card: Payment History Card -->
+            </div>
+            <!-- End Of Container -->
+
+    </body>
+
+</html>

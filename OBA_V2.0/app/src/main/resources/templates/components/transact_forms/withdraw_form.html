@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+</head>
+
+    <body>
+
+        <!-- Withdraw Card -->
+        <div th:fragment="withdraw_form" class="card withdraw-card">
+            <!-- Card Body -->
+            <div class="card-body">
+                <!-- Withdraw Form -->
+                <form th:action="@{/transact/withdraw}" method="post" class="form withdraw-form">
+                    <!-- Form Group -->
+                    <div class="form-group mb-2">
+                        <label>Withdrawal Amount</label>
+                        <input type="text" name="withdrawal_amount" class="form-control" placeholder="Enter Withdrawal Amount">
+                    </div>
+                    <!-- End of Form Group -->
+
+                    <!-- Form Group -->
+                    <div class="form-group mb-2">
+                        <label>Select Account</label>
+                        <!-- Select Account Option -->
+                        <select name="account_id" class="form-control">
+                            <option value="">-- Select Account --</option>
+                            <div th:if="${userAccounts != null}">
+                                <option th:each="a : ${userAccounts}" th:value="${a.account_id}" th:text="${a.account_name}"></option>
+                            </div>
+                        </select>
+                        <!-- Select Account Option -->
+                    </div>
+                    <!-- End of Form Group-->
+
+                    <!-- Form Group -->
+                    <div class="form-group my-2">
+                        <button class="btn btn-md transact-btn">Withdraw</button>
+                    </div>
+                    <!-- End of Form Group -->
+                </form>
+                <!-- End of Withdraw Form -->
+            </div>
+            <!-- End of Card Body -->
+        </div>
+        <!-- End of Withdraw Card -->
+
+    </body>
+
+</html>

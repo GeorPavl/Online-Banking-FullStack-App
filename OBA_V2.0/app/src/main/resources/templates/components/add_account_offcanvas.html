@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    </head>
+
+    <body>
+
+    <!-- Right Side Offcanvas: Account form container -->
+    <div th:fragment="add_account_offcanvas" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title text-white" id="offcanvasRightLabel">Offcanvas right</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <!-- Accounts Form Card -->
+            <div class="card px-3 py-3">
+                <!-- Card Body -->
+                <form th:action="@{/account/create_account}" method="post" class="add-account-form">
+                    <!-- Form Group -->
+                    <div class="form-group">
+                        <label>Enter Account Name</label>
+                        <input type="text" name="account_name" th:name="account_name" class="form-control" placeholder="Enter Account Name">
+                    </div>
+                    <!-- End of Form Group -->
+
+                    <!-- Form Group -->
+                    <div class="form-group mb-3">
+                        <label>Select Account Type</label>
+                        <select name="account_type" th:name="account_type" class="form-control">
+                            <option value="">-- Select Account Type --</option>
+                            <option th:value="check" th:text="Check"></option>
+                            <option th:value="savings" th:text="Savings"></option>
+                            <option th:value="business" th:text="Business"></option>
+                        </select>
+                    </div>
+                    <!-- End of Form Group -->
+
+                    <!-- Form Group -->
+                    <div class="form-group mb-3">
+                        <button class="btn btn-md transact-btn">Add Account</button>
+                    </div>
+                    <!-- End of Form Group -->
+                </form>
+                <!-- End of Card Body -->
+            </div>
+            <!-- End of Accounts Form Card -->
+        </div>
+    </div>
+    <!-- End of Right Side Offcanvas: Account form container-->
+    </div>
+    <!-- End of Container Offcanvas -->
+
+    </body>
+
+</html>
