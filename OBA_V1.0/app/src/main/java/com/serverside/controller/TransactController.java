@@ -2,6 +2,7 @@ package com.serverside.controller;
 
 import com.serverside.model.User;
 import com.serverside.service.AccountService;
+import com.serverside.service.PaymentService;
 import com.serverside.service.TransactService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +21,8 @@ public class TransactController {
     private AccountService accountService;
     @Autowired
     private TransactService transactService;
+    @Autowired
+    private PaymentService paymentService;
 
     @PostMapping("/deposit")
     public String deposit(@RequestParam("deposit_amount") String depositAmount,
@@ -113,6 +116,64 @@ public class TransactController {
 
         redirectAttributes.addFlashAttribute("success", "Amount Transferred Successfully!");
 
+        return "redirect:/app/dashboard";
+    }
+
+    @PostMapping("/payment")
+    public String payment(@RequestParam("beneficiary")String beneficiary,
+                          @RequestParam("account_number")String account_number,
+                          @RequestParam("account_id")String account_id,
+                          @RequestParam("reference")String reference,
+                          @RequestParam("payment_amount")String payment_amount,
+                          HttpSession session,
+                          RedirectAttributes redirectAttributes) {
+
+        // TODO: CHECK FOR EMPTY VALUES:
+        if(beneficiary.isEmpty() || account_number.isEmpty() || account_id.isEmpty() || payment_amount.isEmpty()){
+            redirectAttributes.addFlashAttribute("error", "Beneficiary, Account Number, Account Paying From and Payment Amount Cannot be Empty!");
+            return "redirect:/app/dashboard";
+        }
+
+        // TODO: CONVERT VARIABLES:
+        int accountID = Integer.parseInt(account_id);
+        double paymentAmount = Double.parseDouble(payment_amount);
+
+        // TODO: CHECK FOR 0 (ZERO) VALUES:
+        if(paymentAmount == 0){
+            redirectAttributes.addFlashAttribute("error", "Payment Amount Cannot be of 0 (Zero) value, please enter a value greater than 0 (Zero) ");
+            return "redirect:/app/dashboard";
+        }
+
+        // TODO: GET LOGGED IN USER:
+        User user = (User) session.getAttribute("user");
+
+        // TODO: GET CURRENT BALANCE:
+        double currentBalance = accountService.getAccountBalance(user.getId(), accountID);
+
+        // TODO: CHECK IF PAYMENT AMOUNT IS MORE THAN CURRENT BALANCE:
+        if(currentBalance < paymentAmount){
+            String reasonCode = "Could not Processed Payment due to insufficient funds!";
+            paymentService.makePayment(accountID, beneficiary, account_number, paymentAmount, reference, "failed", reasonCode);
+            // Log Failed Transaction:
+            transactService.logTransaction(accountID, "Payment", paymentAmount, "online", "failed", "Insufficient Funds");
+            redirectAttributes.addFlashAttribute("error", "You Have insufficient Funds to perform this payment");
+            return "redirect:/app/dashboard";
+        }
+
+        // TODO SET NEW BALANCE FOR ACCOUNT PAYING FROM:
+        double newBalance = currentBalance - paymentAmount;
+
+        // TODO: MAKE PAYMENT:
+        String reasonCode = "Payment Processed Successfully!";
+        paymentService.makePayment(accountID, beneficiary, account_number, paymentAmount, reference, "success", reasonCode);
+
+        // TODO: UPDATE ACCOUNT PAYING FROM:
+        accountService.changeAccountBalanceById(newBalance, accountID);
+
+        // Log Successful Transaction:
+        transactService.logTransaction(accountID, "Payment", paymentAmount, "online", "success", "Payment Transaction Successful");
+
+        redirectAttributes.addFlashAttribute("success", reasonCode);
         return "redirect:/app/dashboard";
     }
 }
