@@ -27,22 +27,23 @@ public class User {
 
     @Column(name = "first_name")
     @NotBlank(message = "{errors.user.firstNameEmpty}")
-    @Size(min = 3, message = "")
+    @Size(min = 3, message = "{errors.user.firstNameMin}")
     private String firstName;
 
     @Column(name = "last_name")
-    @NotBlank(message = "")
-    @Size(min = 3, message = "")
+    @NotBlank(message = "{errors.user.lastNameEmpty}")
+    @Size(min = 3, message = "{errors.user.lastNameMin}")
     private String lastName;
 
     @Column(name = "email")
     @Email
+    @NotBlank(message = "{errors.user.emailEmpty}")
     @Pattern(regexp = "([a-zA-Z0-9]+(?:[._+-][a-zA-Z0-9]+)*)@([a-zA-Z0-9]+(?:[.-][a-zA-Z0-9]+)*[.][a-zA-Z]{2,})",
-            message = "")
+            message = "{errors.user.emailValid}")
     private String email;
 
     @Column(name = "password")
-    @NotBlank(message = "The 'Password' field is required.")
+    @NotBlank(message = "{errors.user.passwordEmpty}")
     private String password;
 
     @Column(name = "token")
