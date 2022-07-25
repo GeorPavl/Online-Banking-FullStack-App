@@ -11,7 +11,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "user")
@@ -50,20 +50,19 @@ public class User {
     private String token;
 
     @Column(name = "code")
-    private String code;
+    private Integer code;
 
     @Column(name = "verified")
     private Boolean verified;
 
     @Column(name = "verified_at")
-    @UpdateTimestamp
-    private Date verifiedAt;
+    private LocalDateTime verifiedAt;
 
     @Column(name = "created_at")
     @CreationTimestamp
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     @UpdateTimestamp
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 }

@@ -2,8 +2,11 @@ package com.demobank._helpers;
 
 public class HTML {
 
+    private static final String serverPort = "http://127.0.0.1:8083";
+
     public static String htmlEmailTemplate(String token, String code) {
-        String url = "http://127.0.0.1:8082/verify?token=" + token + "&code=" + code;
+
+        String url = serverPort + "/verify?token=" + token + "&code=" + code;
         String emailTemplate =
                 "<!DOCTYPE html>\n" +
                         "<html lang='en'>\n" +
