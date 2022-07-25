@@ -11,21 +11,23 @@
             <!-- Card Body -->
             <div class="card-body">
                 <!-- Withdraw Form -->
-                <div action="" class="form withdraw-form">
+                <form th:action="@{/transact/withdraw}" method="post" class="form withdraw-form">
                     <!-- Form Group -->
                     <div class="form-group mb-2">
-                        <label for="">Withdrawal Ammount</label>
-                        <input type="text" name="withdraw_ammount" class="form-control" placeholder="Enter Withdrawal Ammount">
+                        <label>Withdrawal Amount</label>
+                        <input type="text" name="withdrawal_amount" class="form-control" placeholder="Enter Withdrawal Amount">
                     </div>
                     <!-- End of Form Group -->
 
                     <!-- Form Group -->
                     <div class="form-group mb-2">
-                        <label for="">Select Account</label>
+                        <label>Select Account</label>
                         <!-- Select Account Option -->
-                        <select name="account_id" id="" class="form-control">
+                        <select name="account_id" class="form-control">
                             <option value="">-- Select Account --</option>
-                            <option value=""></option>
+                            <div th:if="${userAccounts != null}">
+                                <option th:each="a : ${userAccounts}" th:value="${a.account_id}" th:text="${a.account_name}"></option>
+                            </div>
                         </select>
                         <!-- Select Account Option -->
                     </div>
@@ -33,10 +35,10 @@
 
                     <!-- Form Group -->
                     <div class="form-group my-2">
-                        <button id="" class="btn btn-md transact-btn">Withdraw</button>
+                        <button class="btn btn-md transact-btn">Withdraw</button>
                     </div>
                     <!-- End of Form Group -->
-                </div>
+                </form>
                 <!-- End of Withdraw Form -->
             </div>
             <!-- End of Card Body -->

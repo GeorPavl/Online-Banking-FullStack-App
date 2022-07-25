@@ -53,7 +53,7 @@ public class TransactController {
         double new_balance = currentBalance + depositAmountValue;
         accountService.changeAccountBalanceById(new_balance, account_id);
         // Log Successful Transaction:
-        transactService.logTransaction(account_id, "deposit", depositAmountValue, "online", "success", "Deposit Transaction Successful");
+        transactService.logTransaction(account_id, "Deposit", depositAmountValue, "online", "success", "Deposit Transaction Successful");
 
         redirectAttributes.addFlashAttribute("success", "Amount Deposited Successfully!");
 
@@ -112,10 +112,57 @@ public class TransactController {
         accountService.changeAccountBalanceById(newBalanceTo, transferToId);
 
         // Log Successful Transaction:
-        transactService.logTransaction(transferFromId, "deposit", transferAmountValue, "online", "success", "Transfer Transaction Successful");
+        transactService.logTransaction(transferFromId, "Transfer", transferAmountValue, "online", "success", "Transfer Transaction Successful");
 
         redirectAttributes.addFlashAttribute("success", "Amount Transferred Successfully!");
 
+        return "redirect:/app/dashboard";
+    }
+
+    @PostMapping("/withdraw")
+    public String withdraw(@RequestParam("withdrawal_amount")String withdrawalAmount,
+                           @RequestParam("account_id")String accountID,
+                           HttpSession session,
+                           RedirectAttributes redirectAttributes){
+
+        // TODO: CHECK FOR EMPTY VALUES:
+        if(withdrawalAmount.isEmpty() || accountID.isEmpty()){
+            redirectAttributes.addFlashAttribute("error", "Withdrawal Amount and Account Withdrawing From Cannot be Empty ");
+            return "redirect:/app/dashboard";
+        }
+        // TODO: COVERT VARIABLES:
+        double withdrawal_amount = Double.parseDouble(withdrawalAmount);
+        int account_id = Integer.parseInt(accountID);
+
+        // TODO: CHECK FOR 0 (ZERO) VALUES:
+        if (withdrawal_amount == 0){
+            redirectAttributes.addFlashAttribute("error", "Withdrawal Amount Cannot be of 0 (Zero) value, please enter a value greater than 0 (Zero)");
+            return "redirect:/app/dashboard";
+        }
+        // TODO: GET LOGGED IN USER:
+        User user = (User) session.getAttribute("user");
+
+        // TODO: GET CURRENT BALANCE:
+        double currentBalance = accountService.getAccountBalance(user.getId(), account_id);
+
+        // TODO: CHECK IF TRANSFER AMOUNT IS MORE THAN CURRENT BALANCE:
+        if(currentBalance < withdrawal_amount){
+            // Log Failed Transaction:
+            transactService.logTransaction(account_id, "Withdrawal", withdrawal_amount, "online", "failed", "Insufficient Funds");
+            redirectAttributes.addFlashAttribute("error", "You Have insufficient Funds to perform this Withdrawal!");
+            return "redirect:/app/dashboard";
+        }
+
+        // TODO: SET NEW BALANCE:
+        double newBalance = currentBalance - withdrawal_amount;
+
+        // TODO: UPDATE ACCOUNT BALANCE:
+        accountService.changeAccountBalanceById(newBalance, account_id);
+
+        // Log Successful Transaction:
+        transactService.logTransaction(account_id, "Withdrawal", withdrawal_amount, "online", "success", "Withdrawal Transaction Successful");
+
+        redirectAttributes.addFlashAttribute("success", "Withdrawal Successful!");
         return "redirect:/app/dashboard";
     }
 
