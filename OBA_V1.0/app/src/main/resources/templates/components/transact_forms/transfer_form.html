@@ -10,30 +10,50 @@
     <div th:fragment="transfer_form" class="card transfer-card">
         <!-- Card Body -->
         <div class="card-body">
-            <!-- Form Group -->
-            <div class="form-group mb-2">
-                <label for="">Select Account</label>
-                <!-- Select Account Option -->
-                <select name="account_id" id="" class="form-control">
-                    <option value="">-- Select Account --</option>
-                    <option value=""></option>
-                </select>
-                <!-- Select Account Option -->
-            </div>
-            <!-- End of Form Group-->
+            <!-- Transfer Form -->
+            <form th:action="@{/transact/transfer}" method="post" class="form transfer-form">
+                <!-- Form Group -->
+                <div class="form-group mb-2">
+                    <label>Select Account</label>
+                    <!-- Select Account Option -->
+                    <select name="transfer_from" class="form-control">
+                        <option value="">-- Select Account --</option>
+                        <div th:if="${userAccounts != null}">
+                            <option th:each="a : ${userAccounts}" th:value="${a.account_id}" th:text="${a.account_name}"></option>
+                        </div>
+                    </select>
+                    <!-- Select Account Option -->
+                </div>
+                <!-- End of Form Group-->
 
-            <!-- Form Group -->
-            <div class="form-group mb-2">
-                <label for="">Transfer Ammount</label>
-                <input type="text" name="transfer_ammount" class="form-control" placeholder="Enter Transfer Ammount">
-            </div>
-            <!-- End of Form Group -->
+                <!-- Form Group -->
+                <div class="form-group mb-2">
+                    <label>Select Account</label>
+                    <!-- Select Account Option -->
+                    <select name="transfer_to" class="form-control">
+                        <option value="">-- Select Account --</option>
+                        <div th:if="${userAccounts != null}">
+                            <option th:each="a : ${userAccounts}" th:value="${a.account_id}" th:text="${a.account_name}"></option>
+                        </div>
+                    </select>
+                    <!-- Select Account Option -->
+                </div>
+                <!-- End of Form Group-->
 
-            <!-- Form Group -->
-            <div class="form-group mb-2">
-                <button id="" class="btn btn-md transact-btn">Transfer</button>
-            </div>
-            <!-- End of Form Group -->
+                <!-- Form Group -->
+                <div class="form-group mb-2">
+                    <label>Transfer Amount</label>
+                    <input type="text" name="transfer_amount" class="form-control" placeholder="Enter Transfer Amount">
+                </div>
+                <!-- End of Form Group -->
+
+                <!-- Form Group -->
+                <div class="form-group mb-2">
+                    <button class="btn btn-md transact-btn">Transfer</button>
+                </div>
+                <!-- End of Form Group -->
+            </form>
+            <!-- End of Transfer Form -->
         </div>
         <!-- End of Card Body -->
     </div>

@@ -27,6 +27,8 @@ public class AccountController {
 
         // TODO: 24/7/2022 Check for empty strings
         if (accountName == null || accountName.isEmpty()) {
+            // TODO: 25/7/2022 Να αντικαταστήσω τα μηνύματα με μεταβλητές (ίσως static final στην αρχή της κλάσης ή
+            //  σε κάποιο άλλο αρχείο με μηνύματα.
             redirectAttributes.addFlashAttribute("error", "Account Name Cannot Be Empty!");
             return "redirect:/app/dashboard";
         } else if (accountType == null || accountType.isEmpty()) {
