@@ -1,4 +1,4 @@
-package com.demobank._config.model;
+package com.demobank.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +26,7 @@ public class User {
     private Long id;
 
     @Column(name = "first_name")
-    @NotBlank(message = "")
+    @NotBlank(message = "{errors.user.firstNameEmpty}")
     @Size(min = 3, message = "")
     private String firstName;
 
