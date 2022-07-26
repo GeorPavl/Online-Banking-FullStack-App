@@ -42,12 +42,12 @@
                 <!-- End Of Display Message -->
 
                 <!-- Registration Form -->
-                <form th:action="@{/register}" method="post" th:object="${registerUser}" class="reg-form">
+                <form th:action="@{/register}" method="post" th:object="${registerUser}" class="needs-validation reg-form" novalidate>
                     <!-- Row -->
                     <div class="row">
                         <!-- Form Group -->
                         <div class="form-group col">
-                            <input type="text" name="first_name" th:field="*{firstName}" class="form-control form-control-lg" placeholder="Enter first name">
+                            <input type="text" name="first_name" th:field="*{firstName}" class="form-control form-control-lg" placeholder="Enter first name" required>
                             <p th:if="${#fields.hasErrors('firstName')}"
                                th:errors="*{firstName}" class="error-message"></p>
                         </div>
@@ -55,7 +55,7 @@
 
                         <!-- Form Group -->
                         <div class="form-group col">
-                            <input type="text" name="last_name" th:field="*{lastName}" class="form-control form-control-lg" placeholder="Enter last name">
+                            <input type="text" name="last_name" th:field="*{lastName}" class="form-control form-control-lg" placeholder="Enter last name" required>
                             <p th:if="${#fields.hasErrors('lastName')}"
                                th:errors="*{lastName}" class="error-message"></p>
                         </div>
@@ -65,7 +65,7 @@
 
                     <!-- Form Group -->
                     <div class="form-group col">
-                        <input type="email" name="email" th:field="*{email}" class="form-control form-control-lg" placeholder="Enter email">
+                        <input type="email" name="email" th:field="*{email}" class="form-control form-control-lg" placeholder="Enter email" required>
                         <p th:if="${#fields.hasErrors('email')}"
                            th:errors="*{email}" class="error-message"></p>
                     </div>
@@ -75,7 +75,7 @@
                     <div class="row">
                         <!-- Form Group -->
                         <div class="form-group col">
-                            <input type="password" name="password" th:field="*{password}" class="form-control form-control-lg" placeholder="Enter password">
+                            <input type="password" name="password" th:field="*{password}" class="form-control form-control-lg" placeholder="Enter password" required>
                             <p th:if="${#fields.hasErrors('password')}"
                                th:errors="*{password}" class="error-message"></p>
                         </div>
@@ -83,7 +83,7 @@
 
                         <!-- Form Group -->
                         <div class="form-group col">
-                            <input type="password" name="confirmPassword" class="form-control form-control-lg" placeholder="Confirm password">
+                            <input type="password" name="confirmPassword" class="form-control form-control-lg" placeholder="Confirm password" required>
                             <small th:text="${confirmPass}" class="error-message"></small>
                         </div>
                         <!-- End of Form Group -->
@@ -113,7 +113,31 @@
             <!-- End of Card Body-->
 
         </div>
-        <!-- End of Card: Registration Form Card -->
+            <!-- End of Card: Registration Form Card -->
 
+        </div>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+          'use strict'
+
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.querySelectorAll('.needs-validation')
+
+          // Loop over them and prevent submission
+          Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+              form.addEventListener('submit', function (event) {
+                if (!form.checkValidity()) {
+                  event.preventDefault()
+                  event.stopPropagation()
+                }
+
+                form.classList.add('was-validated')
+              }, false)
+            })
+        })()
+    </script>
     </body>
 </html>

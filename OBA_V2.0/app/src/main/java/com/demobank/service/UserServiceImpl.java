@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -55,7 +54,6 @@ public class UserServiceImpl implements UserService{
             // Send email confirmation
             MailMessenger.htmlEmailMessenger(emailFrom, user.getEmail(), emailTitle, emailBody);
         }
-
         return registeredUser;
     }
 
@@ -84,6 +82,18 @@ public class UserServiceImpl implements UserService{
         if (optionalUser.isEmpty()) {
             throw new RuntimeException("Did not found user with token: " + token + " and code: " + code);
         }
+
+        return optionalUser.get();
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+
+        if (optionalUser.isEmpty()) {
+            throw new RuntimeException("Did not found user with email: " + email);
+        }
+
         return optionalUser.get();
     }
 }

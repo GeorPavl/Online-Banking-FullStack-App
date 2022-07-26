@@ -15,4 +15,6 @@ public interface UserService {
     String checkToken(String token);
 
     User findByTokenAndCode(String token, String code);
+
+    User findByEmail(String email);
 }
