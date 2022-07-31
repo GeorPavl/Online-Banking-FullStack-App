@@ -1,6 +1,7 @@
 package com.service;
 
 import com.dto.AccountDTO;
+import com.dto.TransactionDTO;
 import com.entity.Account;
 import com.entity.User;
 import com.repository.AccountRepository;
@@ -16,6 +17,8 @@ public class AccountServiceImpl implements AccountService{
 
     @Autowired
     private AccountRepository accountRepository;
+    @Autowired
+    private TransactionService transactionService;
 
     @Override
     public Account dtoToEntity(AccountDTO accountDTO) throws NotFoundException {
@@ -25,6 +28,11 @@ public class AccountServiceImpl implements AccountService{
             User user = new User();
             user.setId(accountDTO.getUserId());
             account.setUser(user);
+        }
+        if (accountDTO.getTransactionDTOS() != null) {
+            for (TransactionDTO transactionDTO : accountDTO.getTransactionDTOS()) {
+                account.addTransaction(transactionService.dtoToEntity(transactionDTO));
+            }
         }
         return account;
     }

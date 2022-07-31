@@ -2,11 +2,9 @@ package com;
 
 import com.dto.AccountDTO;
 import com.dto.RoleDTO;
+import com.dto.TransactionDTO;
 import com.dto.UserDTO;
-import com.service.AccountService;
-import com.service.PersonService;
-import com.service.RoleService;
-import com.service.UserService;
+import com.service.*;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +23,8 @@ public class TestController {
     private RoleService roleService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private TransactionService transactionService;
 
     @PostMapping("/save-user")
     public UserDTO saveUser(@RequestBody UserDTO userDTO) throws NotFoundException {
@@ -64,5 +64,20 @@ public class TestController {
     @DeleteMapping("/delete-account")
     public void deleteAccount(@RequestParam Long id) throws NotFoundException {
         accountService.delete(id);
+    }
+
+    @GetMapping("/get-transaction")
+    public TransactionDTO getTransaction(@RequestParam("id") Long id) throws NotFoundException {
+        return transactionService.get(id);
+    }
+
+    @PostMapping("/save-transaction")
+    public TransactionDTO saveTransaction(@RequestBody TransactionDTO transactionDTO) {
+        return transactionService.save(transactionDTO);
+    }
+
+    @DeleteMapping("/delete-transaction")
+    public void deleteTransaction(@RequestParam("id") Long id) throws NotFoundException {
+        transactionService.delete(id);
     }
 }
