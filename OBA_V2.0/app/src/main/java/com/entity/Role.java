@@ -22,6 +22,6 @@ public class Role {
     @Column(name = "name")
     private RoleName name;
 
-    @ManyToMany(mappedBy = "roles", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles", cascade = CascadeType.MERGE)
     private List<User> users = new ArrayList<>();
 }

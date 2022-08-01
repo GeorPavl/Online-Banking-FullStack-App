@@ -9,7 +9,7 @@
         <link th:href="@{/css/default.css}" rel="stylesheet" />
         <link th:href="@{/css/registration-page.css}" rel="stylesheet" />
         <link th:href="@{https://fonts.googleapis.com/css?family=Comfortaa}" rel="stylesheet" />
-        <title th:text="${PageTitle}"></title>
+        <title th:text="${pageTitle}"></title>
     </head>
 
     <body class="d-flex align-items-center justify-content-center">
@@ -42,49 +42,61 @@
                 <!-- End Of Display Message -->
 
                 <!-- Registration Form -->
-                <form th:action="@{/register}" method="post" th:object="${registerUser}" class="needs-validation reg-form" novalidate>
+                <form th:action="@{/user/register}" method="post" th:object="${userDTO}" class="needs-validation reg-form" novalidate>
                     <!-- Row -->
                     <div class="row">
                         <!-- Form Group -->
                         <div class="form-group col">
-                            <input type="text" name="first_name" th:field="*{firstName}" class="form-control form-control-lg" placeholder="Enter first name" required>
-                            <p th:if="${#fields.hasErrors('firstName')}"
-                               th:errors="*{firstName}" class="error-message"></p>
+                            <input type="text" name="first_name" th:field="*{personDTO.firstName}" class="form-control form-control-lg" placeholder="Enter first name" required>
+<!--                            <p th:if="${#fields.hasErrors('firstName')}"-->
+<!--                               th:errors="*{firstName}" class="error-message"></p>-->
                         </div>
                         <!-- End of Form Group -->
 
                         <!-- Form Group -->
                         <div class="form-group col">
-                            <input type="text" name="last_name" th:field="*{lastName}" class="form-control form-control-lg" placeholder="Enter last name" required>
-                            <p th:if="${#fields.hasErrors('lastName')}"
-                               th:errors="*{lastName}" class="error-message"></p>
+                            <input type="text" name="last_name" th:field="*{personDTO.lastName}" class="form-control form-control-lg" placeholder="Enter last name" required>
+<!--                            <p th:if="${#fields.hasErrors('lastName')}"-->
+<!--                               th:errors="*{lastName}" class="error-message"></p>-->
                         </div>
                         <!-- End of Form Group -->
                     </div>
                     <!-- End of Row -->
 
-                    <!-- Form Group -->
-                    <div class="form-group col">
-                        <input type="email" name="email" th:field="*{email}" class="form-control form-control-lg" placeholder="Enter email" required>
-                        <p th:if="${#fields.hasErrors('email')}"
-                           th:errors="*{email}" class="error-message"></p>
+                    <!-- Row -->
+                    <div class="row">
+                        <!-- Form Group -->
+                        <div class="form-group col">
+                            <input type="email" name="email" th:field="*{personDTO.email}" class="form-control form-control-lg" placeholder="Enter email" required>
+                            <!--                        <p th:if="${#fields.hasErrors('email')}"-->
+                            <!--                           th:errors="*{email}" class="error-message"></p>-->
+                        </div>
+                        <!-- End of Form Group -->
+
+                        <!-- Form Group -->
+                        <div class="form-group col">
+                            <input type="text" name="last_name" th:field="*{username}" class="form-control form-control-lg" placeholder="Enter username" required>
+                            <!--                            <p th:if="${#fields.hasErrors('lastName')}"-->
+                            <!--                               th:errors="*{lastName}" class="error-message"></p>-->
+                        </div>
+                        <!-- End of Form Group -->
                     </div>
-                    <!-- End of Form Group -->
+                    <!-- End of Row -->
 
                     <!-- Row -->
                     <div class="row">
                         <!-- Form Group -->
                         <div class="form-group col">
                             <input type="password" name="password" th:field="*{password}" class="form-control form-control-lg" placeholder="Enter password" required>
-                            <p th:if="${#fields.hasErrors('password')}"
-                               th:errors="*{password}" class="error-message"></p>
+<!--                            <p th:if="${#fields.hasErrors('password')}"-->
+<!--                               th:errors="*{password}" class="error-message"></p>-->
                         </div>
                         <!-- End of Form Group -->
 
                         <!-- Form Group -->
                         <div class="form-group col">
                             <input type="password" name="confirmPassword" class="form-control form-control-lg" placeholder="Confirm password" required>
-                            <small th:text="${confirmPass}" class="error-message"></small>
+<!--                            <small th:text="${confirmPass}" class="error-message"></small>-->
                         </div>
                         <!-- End of Form Group -->
                     </div>

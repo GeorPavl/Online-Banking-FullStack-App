@@ -20,7 +20,7 @@ import java.util.Map;
 public class AuthenticationSuccessHandlerCustom implements org.springframework.security.web.authentication.AuthenticationSuccessHandler {
 
     protected Log logger = LogFactory.getLog(this.getClass());
-    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+    private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -28,12 +28,13 @@ public class AuthenticationSuccessHandlerCustom implements org.springframework.s
         clearAuthenticationAttributes(request);
     }
 
-    protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+    protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         String targetUrl = determineTargetUrl(authentication);
         if (response.isCommitted()) {
             logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
             return;
         }
+        redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
     protected String determineTargetUrl(final Authentication authentication) {

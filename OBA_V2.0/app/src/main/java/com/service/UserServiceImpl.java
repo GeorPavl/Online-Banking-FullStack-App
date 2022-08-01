@@ -1,5 +1,10 @@
 package com.service;
 
+import com._config._helpers.RandomCodeGenerator;
+import com._config._helpers._enums.RoleName;
+import com._config._mail.HTML;
+import com._config._mail.MailMessenger;
+import com._config._mail.Token;
 import com.dto.AccountDTO;
 import com.dto.RoleDTO;
 import com.dto.UserDTO;
@@ -8,8 +13,11 @@ import com.repository.UserRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +33,8 @@ public class UserServiceImpl implements UserService{
     private RoleService roleService;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User dtoToEntity(UserDTO userDTO) throws NotFoundException {
@@ -74,8 +84,54 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserDTO getByTokenAndCode(String token, String code) throws NotFoundException {
+        Optional<User> optionalUser = userRepository.findByTokenAndCode(token, Integer.valueOf(code));
+        if (optionalUser.isEmpty()) {
+            throw new NotFoundException("Did not found user with token: " + token + " and code: " + code);
+        }
+        return new UserDTO(optionalUser.get());
+    }
+
+    @Override
     public UserDTO save(UserDTO userDTO) throws NotFoundException {
         return new UserDTO(userRepository.save(dtoToEntity(userDTO)));
+    }
+
+    @Override
+    public UserDTO register(UserDTO userDTO) throws NotFoundException, MessagingException {
+        // Generate and set token
+        userDTO.setToken(Token.generateToken());
+        // Generate and set code
+        userDTO.setCode(RandomCodeGenerator.generateRandomCode());
+        // Hash and set password
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        // Set verified and enabled
+        userDTO.setVerified(false);
+        userDTO.setEnabled(false);
+        // Set role
+        RoleDTO roleDTO = roleService.getByName(RoleName.ROLE_USER);
+        userDTO.getRoleDTOS().add(roleDTO);
+        // Register user
+        UserDTO registeredUser = save(userDTO);
+        // Check if registration was successful
+        if (registeredUser != null) {
+            // Send verification email
+            sendVerificationEmail(registeredUser);
+        }
+        return registeredUser;
+    }
+
+    @Override
+    public void verify(String token, String code) throws NotFoundException {
+        UserDTO userDTO = getByTokenAndCode(token, code);
+
+        userDTO.setToken(null);
+        userDTO.setCode(null);
+        userDTO.setVerified(true);
+        userDTO.setVerifiedAt(LocalDateTime.now());
+        userDTO.setEnabled(true);
+
+        save(userDTO);
     }
 
     @Override
@@ -83,5 +139,12 @@ public class UserServiceImpl implements UserService{
         if (get(id) != null) {
             userRepository.deleteById(id);
         }
+    }
+
+    private void sendVerificationEmail(UserDTO userDTO) throws MessagingException {
+        // Get email body
+        String emailBody = HTML.htmlEmailTemplate(userDTO.getToken(), String.valueOf(userDTO.getCode()));
+        // Send email confirmation
+        MailMessenger.htmlEmailMessenger(MailMessenger.emailFrom, userDTO.getPersonDTO().getEmail(), MailMessenger.emailTitle, emailBody);
     }
 }

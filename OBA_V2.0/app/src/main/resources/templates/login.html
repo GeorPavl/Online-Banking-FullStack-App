@@ -9,7 +9,7 @@
         <link th:href="@{/css/default.css}" rel="stylesheet" />
         <link th:href="@{/css/registration-page.css}" rel="stylesheet" />
         <link th:href="@{https://fonts.googleapis.com/css?family=Comfortaa}" rel="stylesheet" />
-        <title th:text="${PageTitle}"></title>
+        <title th:text="${pageTitle}"></title>
     </head>
 
     <body class="d-flex align-items-center justify-content-center">
@@ -50,25 +50,25 @@
                 <!-- End Of Display Message -->
 
                 <!-- Login Form -->
-                <form th:action="@{/login}" method="post" class="login-form">
+                <form th:action="@{/authenticateTheUser}" method="post" class="login-form">
 
                     <!-- Form Group -->
                     <div class="form-group col">
-                        <input type="email" name="email" th:name="email" class="form-control form-control-lg" placeholder="Enter email">
+                        <input type="text" name="username" id="username" class="form-control form-control-lg" placeholder="Enter username">
                     </div>
                     <!-- End of Form Group -->
 
 
                     <!-- Form Group -->
                     <div class="form-group col">
-                        <input type="password" name="password" th:name="password" class="form-control form-control-lg" placeholder="Enter password">
+                        <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="Enter password">
                     </div>
                     <!-- End of Form Group -->
 
                     <!-- From Group -->
-                    <div class="form-group col">
-                        <input type="hidden" name="_token" th:name="_token"/>
-                    </div>
+<!--                    <div class="form-group col">-->
+<!--                        <input type="hidden" name="_token" th:name="_token"/>-->
+<!--                    </div>-->
                     <!-- End Of From Group -->
 
                     <!-- Form Group -->

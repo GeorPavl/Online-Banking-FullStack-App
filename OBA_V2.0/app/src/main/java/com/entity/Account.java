@@ -45,7 +45,7 @@ public class Account {
     @Column(name = "updatedAt")
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Transaction> transactions = new ArrayList<>();
 
     public void addTransaction(Transaction transaction) {
