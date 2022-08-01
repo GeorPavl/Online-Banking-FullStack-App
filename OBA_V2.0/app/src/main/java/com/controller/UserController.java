@@ -69,7 +69,6 @@ public class UserController {
         }
     }
 
-
     @GetMapping("/user-panel")
     public String getUserPanelPage(@AuthenticationPrincipal UserDetails userDetails, Model model) throws NotFoundException {
         title = messageSource.getMessage("titles.userPanel", null, locale);

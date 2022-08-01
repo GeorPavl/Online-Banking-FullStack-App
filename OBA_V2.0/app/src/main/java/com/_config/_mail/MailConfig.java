@@ -6,8 +6,8 @@ import java.util.Properties;
 
 public class MailConfig {
 
-    private static final String username = "georpavloglou@gmail.com";
-    private static final String password = "mhnriidazfaruatr";
+    private static final String username = ""; // georpavloglou@gmail.com
+    private static final String password = ""; //mhnriidazfaruatr
 
     public static JavaMailSenderImpl getMailConfig() {
         JavaMailSenderImpl emailConfig = new JavaMailSenderImpl();
