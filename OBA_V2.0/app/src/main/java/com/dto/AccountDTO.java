@@ -45,4 +45,9 @@ public class AccountDTO {
             }
         }
     }
+
+    public Double deposit(Double depositAmount) {
+        this.balance += depositAmount;
+        return this.balance;
+    }
 }
