@@ -31,10 +31,15 @@ public class TransactionDTO {
 
     private LocalDateTime createdAt;
 
+    private PaymentDTO paymentDTO;
+
     public TransactionDTO(Transaction transaction) {
         BeanUtils.copyProperties(transaction, this);
         if (transaction.getAccount() != null) {
             this.accountId = transaction.getAccount().getId();
+        }
+        if (transaction.getPayment() != null) {
+            this.paymentDTO = new PaymentDTO(transaction.getPayment());
         }
     }
 }

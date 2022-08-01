@@ -14,6 +14,8 @@ public interface UserService {
 
     UserDTO get(Long id) throws NotFoundException;
 
+    UserDTO getByUsername(String username) throws NotFoundException;
+
     UserDTO save(UserDTO userDTO) throws NotFoundException;
 
     void delete(Long id) throws NotFoundException;

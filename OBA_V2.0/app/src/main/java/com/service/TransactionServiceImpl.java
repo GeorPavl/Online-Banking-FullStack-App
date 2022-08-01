@@ -16,6 +16,8 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Autowired
     private TransactionRepository transactionRepository;
+    @Autowired
+    private PaymentService paymentService;
 
     @Override
     public Transaction dtoToEntity(TransactionDTO transactionDTO) {
@@ -26,12 +28,16 @@ public class TransactionServiceImpl implements TransactionService{
             account.setId(transactionDTO.getAccountId());
             transaction.setAccount(account);
         }
+        if (transactionDTO.getPaymentDTO() != null) {
+            transaction.setPayment(paymentService.dtoToEntity(transactionDTO.getPaymentDTO()));
+        }
         return transaction;
     }
 
     @Override
     public TransactionDTO get(Long id) throws NotFoundException {
         Optional<Transaction> optionalTransaction = transactionRepository.findById(id);
+
         if (optionalTransaction.isEmpty()) {
             throw new NotFoundException("Did not found transaction with id: " + id);
         }

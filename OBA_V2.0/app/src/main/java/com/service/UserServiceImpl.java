@@ -65,6 +65,15 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserDTO getByUsername(String username) throws NotFoundException {
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        if (optionalUser.isEmpty()) {
+            throw new NotFoundException("Did not found user with username: " + username);
+        }
+        return new UserDTO(optionalUser.get());
+    }
+
+    @Override
     public UserDTO save(UserDTO userDTO) throws NotFoundException {
         return new UserDTO(userRepository.save(dtoToEntity(userDTO)));
     }
