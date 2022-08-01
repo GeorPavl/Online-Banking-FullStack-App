@@ -24,7 +24,6 @@ public class Payment{
     @Column(name = "reference_number")
     private String referenceNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "transactions_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "payment")
     private Transaction transaction;
 }

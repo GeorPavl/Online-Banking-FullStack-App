@@ -19,7 +19,7 @@
                     <select name="transfer_from" class="form-control">
                         <option value="">-- Select Account --</option>
                         <div th:if="${userAccounts != null}">
-                            <option th:each="a : ${userAccounts}" th:value="${a.account_id}" th:text="${a.account_name}"></option>
+                            <option th:each="a : ${userAccounts}" th:value="${a.id}" th:text="${a.name}"></option>
                         </div>
                     </select>
                     <!-- Select Account Option -->
@@ -33,7 +33,7 @@
                     <select name="transfer_to" class="form-control">
                         <option value="">-- Select Account --</option>
                         <div th:if="${userAccounts != null}">
-                            <option th:each="a : ${userAccounts}" th:value="${a.account_id}" th:text="${a.account_name}"></option>
+                            <option th:each="a : ${userAccounts}" th:value="${a.id}" th:text="${a.name}"></option>
                         </div>
                     </select>
                     <!-- Select Account Option -->

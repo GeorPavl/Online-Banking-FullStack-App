@@ -43,6 +43,8 @@ public class Transaction {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @OneToOne(mappedBy = "transaction")
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "payments_id", referencedColumnName = "id")
     private Payment payment;
 }

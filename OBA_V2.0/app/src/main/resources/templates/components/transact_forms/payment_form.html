@@ -33,7 +33,7 @@
                     <select name="account_id" class="form-control">
                         <option value="">-- Select Account --</option>
                         <div th:if="${userAccounts != null}">
-                            <option th:each="a : ${userAccounts}" th:value="${a.account_id}" th:text="${a.account_name}"></option>
+                            <option th:each="a : ${userAccounts}" th:value="${a.id}" th:text="${a.name}"></option>
                         </div>
                     </select>
                     <!-- Select Account Option -->
@@ -50,7 +50,7 @@
                 <!-- Form Group -->
                 <div class="form-group mb-2">
                     <label>Payment Amount</label>
-                    <input type="text" name="payment_amount" class="form-control" placeholder="Enter Payment Amount">
+                    <input type="text" name="amount" class="form-control" placeholder="Enter Payment Amount">
                 </div>
                 <!-- End of Form Group -->
 
