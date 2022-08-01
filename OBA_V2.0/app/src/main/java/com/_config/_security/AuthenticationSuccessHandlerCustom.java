@@ -40,7 +40,7 @@ public class AuthenticationSuccessHandlerCustom implements org.springframework.s
     protected String determineTargetUrl(final Authentication authentication) {
         Map<String, String> roleTargetUrlMap = new HashMap<>();
         roleTargetUrlMap.put("ROLE_ADMIN", "/admin-panel");
-        roleTargetUrlMap.put("ROLE_USER", "/user-panel");
+        roleTargetUrlMap.put("ROLE_USER", "/user/user-panel");
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         for (final GrantedAuthority grantedAuthority : authorities) {
             String authorityName = grantedAuthority.getAuthority();

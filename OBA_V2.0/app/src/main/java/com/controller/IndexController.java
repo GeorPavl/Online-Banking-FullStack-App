@@ -38,11 +38,4 @@ public class IndexController {
         model.addAttribute("pageTitle", title);
         return "admin-index";
     }
-
-    @GetMapping("/user-panel")
-    public String getUserPanelPage(Model model) {
-        title = messageSource.getMessage("titles.userPanel", null, locale);
-        model.addAttribute("pageTitle", title);
-        return "user/user-index";
-    }
 }
