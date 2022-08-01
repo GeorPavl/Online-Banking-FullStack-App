@@ -58,7 +58,7 @@ public class UserController {
         }
 
         try {
-            UserDTO registeredUser = userService.register(userDTO);
+            userService.register(userDTO);
             String successMessage = messageSource.getMessage("success.registration", null, locale);
             model.addAttribute("success", successMessage);
             return "login";

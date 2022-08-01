@@ -5,7 +5,6 @@ import com._config._helpers._enums.TransactionStatus;
 import com._config._helpers._enums.TransactionType;
 import com.dto.AccountDTO;
 import com.dto.TransactionDTO;
-import com.dto.UserDTO;
 import com.service.AccountService;
 import com.service.TransactionService;
 import com.service.UserService;
@@ -50,7 +49,7 @@ public class TransactionController {
             return "redirect:/user/user-panel";
         }
         // Cast params
-        Long accountIdInt = Long.valueOf(accountId);
+        Long accountIdLong = Long.valueOf(accountId);
         Double depositAmountValue = Double.parseDouble(depositAmount);
         // Check if amount value is greater than zero
         if (depositAmountValue == 0) {
@@ -59,21 +58,12 @@ public class TransactionController {
             return "redirect:/user/user-panel";
         }
         try {
-            // Get logged in user
-            UserDTO userDTO = userService.getByUsername(userDetails.getUsername());
             // Get user's account to deposit
-            AccountDTO accountDTO = accountService.get(accountIdInt);
+            AccountDTO accountDTO = accountService.get(accountIdLong);
             // Deposit money
             accountDTO.deposit(depositAmountValue);
             // Save transaction
-            TransactionDTO transactionDTO = new TransactionDTO();
-            transactionDTO.setAccountId(accountIdInt);
-            transactionDTO.setAmount(depositAmountValue);
-            transactionDTO.setSource(TransactionSource.ONLINE);
-            transactionDTO.setType(TransactionType.DEPOSIT);
-            transactionDTO.setStatus(TransactionStatus.SUCCESS);
-            transactionDTO.setReasonCode("Deposit Transaction Successful");
-            transactionService.save(transactionDTO);
+            transactionService.save(new TransactionDTO(accountIdLong, depositAmountValue, TransactionType.DEPOSIT, TransactionStatus.SUCCESS, "Deposit Transaction Successful", TransactionSource.ONLINE));
             accountService.save(accountDTO);
             redirectAttributes.addFlashAttribute("success", "Amount Deposited Successfully!");
             return "redirect:/user/user-panel";

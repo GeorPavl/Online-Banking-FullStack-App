@@ -42,4 +42,13 @@ public class TransactionDTO {
             this.paymentDTO = new PaymentDTO(transaction.getPayment());
         }
     }
+
+    public TransactionDTO(Long accountId, Double amount, TransactionType type, TransactionStatus status, String reasonCode, TransactionSource source) {
+        this.accountId = accountId;
+        this.amount = amount;
+        this.type = type;
+        this.status = status;
+        this.reasonCode = reasonCode;
+        this.source = source;
+    }
 }
