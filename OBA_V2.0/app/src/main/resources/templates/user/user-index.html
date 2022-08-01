@@ -41,11 +41,11 @@
         <!-- End of Container Offcanvas -->
 
         <!-- Display Accounts -->
-        <th:block th:if="${userAccounts.size > 0}">
+        <th:block th:if="${user.accountDTOS.size > 0}">
             <div th:insert="components/accounts_display.html :: accounts_display"> </div>
         </th:block>
         <!-- Don't Display Accounts -->
-        <th:block th:if="${userAccounts.size < 1}">
+        <th:block th:if="${user.accountDTOS.size < 1}">
             <div th:insert="components/no_accounts_display.html :: no_accounts_display"> </div>
         </th:block>
         <!-- Footer -->

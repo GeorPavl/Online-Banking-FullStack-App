@@ -20,14 +20,14 @@
                     <!-- Form Group -->
                     <div class="form-group">
                         <label>Enter Account Name</label>
-                        <input type="text" name="account_name" th:name="name" class="form-control" placeholder="Enter Account Name">
+                        <input type="text" name="name" th:name="name" class="form-control" placeholder="Enter Account Name">
                     </div>
                     <!-- End of Form Group -->
 
                     <!-- Form Group -->
                     <div class="form-group mb-3">
                         <label>Select Account Type</label>
-                        <select name="account_type" th:name="type" class="form-control">
+                        <select name="type" th:name="type" class="form-control">
                             <option value="">-- Select Account Type --</option>
                             <option th:value="CHECK" th:text="Check"></option>
                             <option th:value="SAVINGS" th:text="Savings"></option>

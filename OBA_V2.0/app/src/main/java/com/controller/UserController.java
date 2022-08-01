@@ -4,6 +4,7 @@ import com.dto.UserDTO;
 import com.service.AccountService;
 import com.service.UserService;
 import javassist.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -18,6 +19,7 @@ import java.util.Locale;
 
 @Controller
 @RequestMapping("/user")
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -44,6 +46,7 @@ public class UserController {
     public String registerUser(@ModelAttribute UserDTO userDTO,
                                @RequestParam("confirmPassword") String confirmPassword,
                                Model model) throws NotFoundException, MessagingException {
+
         title = messageSource.getMessage("titles.register", null, locale);
         model.addAttribute("pageTitle", title);
 
@@ -53,17 +56,17 @@ public class UserController {
             model.addAttribute("error", errorMessage);
             return "error";
         }
-        // Register user
-        UserDTO registeredUser = userService.register(userDTO);
-        // Check if registration was successful
-        if (registeredUser == null) {
+
+        try {
+            UserDTO registeredUser = userService.register(userDTO);
+            String successMessage = messageSource.getMessage("success.registration", null, locale);
+            model.addAttribute("success", successMessage);
+            return "login";
+        } catch (Exception e) {
             errorMessage = messageSource.getMessage("errors.registration.general", null, locale);
             model.addAttribute("error", errorMessage);
             return "error";
         }
-        String successMessage = messageSource.getMessage("success.registration", null, locale);
-        model.addAttribute("success", successMessage);
-        return "login";
     }
 
 
@@ -76,18 +79,12 @@ public class UserController {
         try {
             UserDTO userDTO = userService.getByUsername(userDetails.getUsername());
             // TODO: 24/7/2022 Fix Accordion Collapse
-            // Set Objects
             model.addAttribute("user", userDTO);
-            model.addAttribute("userAccounts", userDTO.getAccountDTOS());
-            model.addAttribute("totalBalance", userDTO.getTotalBalance());
         } catch (Exception e) {
             errorMessage = messageSource.getMessage("errors.user.notFound", null, locale);
             model.addAttribute("error", errorMessage);
             return "error";
         }
-
-
-
 
         return "user/user-index";
     }

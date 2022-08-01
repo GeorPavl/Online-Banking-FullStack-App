@@ -62,6 +62,8 @@ public class AccountServiceImpl implements AccountService{
         return new AccountDTO(accountRepository.save(dtoToEntity(accountDTO)));
     }
 
+    // TODO: 1/8/2022 Check if account's balance > 0
+    //  if account's balance > 0   ->  user must transfer or withraw money
     @Override
     public void delete(Long id) throws NotFoundException {
         if (get(id) != null) {
