@@ -1,9 +1,7 @@
 package com.controller;
 
-import com._config._helpers.GenerateAccountNumber;
 import com._config._helpers._enums.AccountType;
 import com.dto.AccountDTO;
-import com.dto.UserDTO;
 import com.service.AccountService;
 import com.service.UserService;
 import javassist.NotFoundException;
@@ -52,19 +50,8 @@ public class AccountController {
             return "redirect:/user/user-panel";
         }
 
-        // Get logged in user
-        UserDTO userDTO = userService.getByUsername(userDetails.getUsername());
-
-        // Generate Account Number
-        Integer accountNumber = GenerateAccountNumber.generateAccountNumber();
-        AccountDTO accountDTO = new AccountDTO();
-        accountDTO.setUserId(userDTO.getId());
-        accountDTO.setName(accountName);
-        accountDTO.setType(AccountType.valueOf(accountType));
-        accountDTO.setNumber(String.valueOf(accountNumber));
         // Create Account
-        accountService.save(accountDTO);
-
+        accountService.save(new AccountDTO(accountName, AccountType.valueOf(accountType), userService.getByUsername(userDetails.getUsername()).getId()));
         // Set success message
         successMessage = messageSource.getMessage("success.account.save", null, locale);
         redirectAttributes.addFlashAttribute("success", successMessage);

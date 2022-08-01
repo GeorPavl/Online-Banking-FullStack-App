@@ -1,5 +1,6 @@
 package com.dto;
 
+import com._config._helpers.GenerateAccountNumber;
 import com._config._helpers._enums.AccountType;
 import com.entity.Account;
 import com.entity.Transaction;
@@ -44,6 +45,13 @@ public class AccountDTO {
                 this.transactionDTOS.add(new TransactionDTO(transaction));
             }
         }
+    }
+
+    public AccountDTO(String name, AccountType type, Long userId) {
+        this.number = String.valueOf(GenerateAccountNumber.generateAccountNumber());
+        this.name = name;
+        this.type = type;
+        this.userId = userId;
     }
 
     public Double deposit(Double depositAmount) {
