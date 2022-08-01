@@ -42,6 +42,8 @@ public class UserDTO {
 
     private List<AccountDTO> accountDTOS = new ArrayList<>();
 
+    private Double totalBalance = 0.0;
+
     public UserDTO(User user) {
         BeanUtils.copyProperties(user, this);
         if (user.getPerson() != null) {
@@ -55,7 +57,9 @@ public class UserDTO {
         if (user.getAccounts() != null) {
             for (Account account : user.getAccounts()) {
                 accountDTOS.add(new AccountDTO(account));
+                this.totalBalance += account.getBalance();
             }
+
         }
     }
 }

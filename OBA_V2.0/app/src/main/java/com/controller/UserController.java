@@ -1,11 +1,14 @@
 package com.controller;
 
 import com.dto.UserDTO;
+import com.service.AccountService;
 import com.service.UserService;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +22,8 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private AccountService accountService;
     @Autowired
     private MessageSource messageSource;
 
@@ -64,9 +68,27 @@ public class UserController {
 
 
     @GetMapping("/user-panel")
-    public String getUserPanelPage(Model model) {
+    public String getUserPanelPage(@AuthenticationPrincipal UserDetails userDetails, Model model) throws NotFoundException {
         title = messageSource.getMessage("titles.userPanel", null, locale);
         model.addAttribute("pageTitle", title);
+
+        // Get the details of logged in User
+        try {
+            UserDTO userDTO = userService.getByUsername(userDetails.getUsername());
+            // TODO: 24/7/2022 Fix Accordion Collapse
+            // Set Objects
+            model.addAttribute("user", userDTO);
+            model.addAttribute("userAccounts", userDTO.getAccountDTOS());
+            model.addAttribute("totalBalance", userDTO.getTotalBalance());
+        } catch (Exception e) {
+            errorMessage = messageSource.getMessage("errors.user.notFound", null, locale);
+            model.addAttribute("error", errorMessage);
+            return "error";
+        }
+
+
+
+
         return "user/user-index";
     }
 }

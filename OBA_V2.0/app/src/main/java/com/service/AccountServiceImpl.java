@@ -10,6 +10,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,6 +49,15 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
+    public List<Account> getUserAccounts(Long id) {
+        Optional<List<Account>> optionalAccounts = accountRepository.getUserAccountsById(id);
+        if (optionalAccounts.isEmpty()) {
+            throw new RuntimeException("Did not found accounts for this user id: " + id);
+        }
+        return optionalAccounts.get();
+    }
+
+    @Override
     public AccountDTO save(AccountDTO accountDTO) throws NotFoundException {
         return new AccountDTO(accountRepository.save(dtoToEntity(accountDTO)));
     }
@@ -56,5 +67,10 @@ public class AccountServiceImpl implements AccountService{
         if (get(id) != null) {
             accountRepository.deleteById(id);
         }
+    }
+
+    @Override
+    public BigDecimal getTotalBalance(Long user_id) {
+        return accountRepository.getTotalBalance(user_id);
     }
 }
