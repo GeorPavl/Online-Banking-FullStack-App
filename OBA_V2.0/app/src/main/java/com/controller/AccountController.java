@@ -11,9 +11,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Locale;
@@ -36,25 +34,20 @@ public class AccountController {
     @PostMapping("/create_account")
     public String createAccount(@RequestParam("name") String accountName,
                                 @RequestParam("type") String accountType,
+                                @ModelAttribute AccountDTO accountDTO,
                                 @AuthenticationPrincipal UserDetails userDetails,
                                 RedirectAttributes redirectAttributes) throws NotFoundException {
-
-        // Check for empty strings
-        if (accountName == null || accountName.isEmpty()) {
-            errorMessage = messageSource.getMessage("errors.account.emptyName", null, locale);
-            redirectAttributes.addFlashAttribute("error", errorMessage);
-            return "redirect:/user/user-panel";
-        } else if (accountType == null || accountType.isEmpty()) {
-            errorMessage = messageSource.getMessage("errors.account.emptyName", null, locale);
-            redirectAttributes.addFlashAttribute("error", errorMessage);
-            return "redirect:/user/user-panel";
+        if (accountDTO.getType() != null) {
+            accountDTO.setType(AccountType.valueOf(accountType));
         }
-
-        // Create Account
-        accountService.save(new AccountDTO(accountName, AccountType.valueOf(accountType), userService.getByUsername(userDetails.getUsername()).getId()));
-        // Set success message
-        successMessage = messageSource.getMessage("success.account.save", null, locale);
-        redirectAttributes.addFlashAttribute("success", successMessage);
+        try {
+            accountService.createAccount(accountDTO);
+            successMessage = messageSource.getMessage("success.account.save", null, locale);
+            redirectAttributes.addFlashAttribute("success", successMessage);
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+        }
         return "redirect:/user/user-panel";
     }
 }

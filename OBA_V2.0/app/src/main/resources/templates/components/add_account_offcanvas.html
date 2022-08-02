@@ -16,7 +16,7 @@
             <!-- Accounts Form Card -->
             <div class="card px-3 py-3">
                 <!-- Card Body -->
-                <form th:action="@{/account/create_account}" method="post" class="add-account-form">
+                <form th:action="@{/account/create_account}" method="post" th:object="${userDTO}" class="add-account-form">
                     <!-- Form Group -->
                     <div class="form-group">
                         <label>Enter Account Name</label>

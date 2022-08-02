@@ -17,6 +17,8 @@ public interface AccountService {
 
     AccountDTO save(AccountDTO accountDTO) throws NotFoundException;
 
+    AccountDTO createAccount(AccountDTO accountDTO) throws NotFoundException;
+
     void delete(Long id) throws NotFoundException;
 
     BigDecimal getTotalBalance(Long user_id);
