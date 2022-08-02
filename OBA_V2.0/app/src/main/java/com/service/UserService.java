@@ -19,6 +19,8 @@ public interface UserService {
 
     UserDTO getByTokenAndCode(String token, String code) throws NotFoundException;
 
+    UserDTO getLoggedInUser() throws NotFoundException;
+
     UserDTO save(UserDTO userDTO) throws NotFoundException;
 
     UserDTO register(UserDTO userDTO) throws NotFoundException, MessagingException;

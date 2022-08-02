@@ -11,11 +11,11 @@
         <!-- Card Body -->
         <div class="card-body">
             <!-- Deposit Form -->
-            <form th:action="@{/transaction/deposit}" method="post" class="form deposit-form">
+            <form th:action="@{/transaction/deposit}" th:object="${transactionDTO}" method="post" class="form deposit-form">
                 <!-- Form Group -->
                 <div class="form-group mb-2">
                     <label>Deposit Amount</label>
-                    <input type="text" name="deposit_amount" class="form-control" placeholder="Enter Deposit Amount">
+                    <input type="text" th:name="amount" class="form-control" placeholder="Enter Deposit Amount">
                 </div>
                 <!-- End of Form Group -->
 
@@ -23,7 +23,7 @@
                 <div class="form-group mb-2">
                     <label>Select Account</label>
                     <!-- Select Account Option -->
-                    <select name="account_id" class="form-control">
+                    <select th:name="accountId" class="form-control">
                         <option value="">-- Select Account --</option>
                         <div th:if="${user.accountDTOS != null}">
                             <option th:each="a : ${user.accountDTOS}" th:value="${a.id}" th:text="${a.name}"></option>

@@ -17,4 +17,6 @@ public interface TransactionService {
     TransactionDTO save(TransactionDTO transactionDTO);
 
     void delete(Long id) throws NotFoundException;
+
+    void deposit(TransactionDTO transactionDTO) throws NotFoundException;
 }

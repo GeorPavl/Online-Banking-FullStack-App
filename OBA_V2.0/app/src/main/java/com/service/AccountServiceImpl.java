@@ -11,8 +11,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Locale;
@@ -66,15 +64,7 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public AccountDTO createAccount(AccountDTO accountDTO) throws NotFoundException {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        String username;
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-
-        UserDTO userDTO = userService.getByUsername(username);
+        UserDTO userDTO = userService.getLoggedInUser();
 
         // Check for empty strings
         if (accountDTO.getName() == null || accountDTO.getName().isEmpty()) {
