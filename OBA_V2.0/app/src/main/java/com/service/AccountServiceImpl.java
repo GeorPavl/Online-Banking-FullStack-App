@@ -15,8 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -34,7 +32,6 @@ public class AccountServiceImpl implements AccountService{
 
     private static final Locale locale = LocaleContextHolder.getLocale();
     private static String errorMessage;
-    private static String successMessage;
 
     @Override
     public Account dtoToEntity(AccountDTO accountDTO) throws NotFoundException {
@@ -60,15 +57,6 @@ public class AccountServiceImpl implements AccountService{
             throw new NotFoundException("Did not found account with id: " + id);
         }
         return new AccountDTO(optionalAccount.get());
-    }
-
-    @Override
-    public List<Account> getUserAccounts(Long id) {
-        Optional<List<Account>> optionalAccounts = accountRepository.getUserAccountsById(id);
-        if (optionalAccounts.isEmpty()) {
-            throw new RuntimeException("Did not found accounts for this user id: " + id);
-        }
-        return optionalAccounts.get();
     }
 
     @Override
@@ -106,10 +94,5 @@ public class AccountServiceImpl implements AccountService{
         if (get(id) != null) {
             accountRepository.deleteById(id);
         }
-    }
-
-    @Override
-    public BigDecimal getTotalBalance(Long user_id) {
-        return accountRepository.getTotalBalance(user_id);
     }
 }

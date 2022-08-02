@@ -16,18 +16,18 @@
             <!-- Accounts Form Card -->
             <div class="card px-3 py-3">
                 <!-- Card Body -->
-                <form th:action="@{/account/create_account}" method="post" th:object="${userDTO}" class="add-account-form">
+                <form th:action="@{/account/create_account}" method="post" th:object="${userDTO}" class="needs-validation add-account-form" needs-validation>
                     <!-- Form Group -->
                     <div class="form-group">
                         <label>Enter Account Name</label>
-                        <input type="text" name="name" th:name="name" class="form-control" placeholder="Enter Account Name">
+                        <input type="text" name="name" th:name="name" class=" form-control" placeholder="Enter Account Name" required>
                     </div>
                     <!-- End of Form Group -->
 
                     <!-- Form Group -->
                     <div class="form-group mb-3">
                         <label>Select Account Type</label>
-                        <select name="type" th:name="type" class="form-control">
+                        <select name="type" th:name="type" class="form-control" required>
                             <option value="">-- Select Account Type --</option>
                             <option th:value="CHECK" th:text="Check"></option>
                             <option th:value="SAVINGS" th:text="Savings"></option>
