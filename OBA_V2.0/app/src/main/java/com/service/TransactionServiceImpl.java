@@ -29,7 +29,7 @@ public class TransactionServiceImpl implements TransactionService{
             transaction.setAccount(account);
         }
         if (transactionDTO.getPaymentDTO() != null) {
-            transaction.setPayment(paymentService.dtoToEntity(transactionDTO.getPaymentDTO()));
+            transaction.addPayment(paymentService.dtoToEntity(transactionDTO.getPaymentDTO()));
         }
         return transaction;
     }

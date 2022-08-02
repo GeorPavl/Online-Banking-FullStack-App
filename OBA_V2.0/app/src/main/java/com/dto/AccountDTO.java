@@ -66,4 +66,8 @@ public class AccountDTO {
         this.balance -= transferAmount;
         transferTo.balance += transferAmount;
     }
+
+    public void payment(Double paymentAmount) {
+        this.balance -= paymentAmount;
+    }
 }

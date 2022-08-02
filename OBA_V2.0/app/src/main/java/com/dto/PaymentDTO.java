@@ -26,4 +26,10 @@ public class PaymentDTO {
             this.transactionId = payment.getTransaction().getId();
         }
     }
+
+    public PaymentDTO(String beneficiary, String beneficiaryAccountNumber, String referenceNumber) {
+        this.beneficiary = beneficiary;
+        this.beneficiaryAccountNumber = beneficiaryAccountNumber;
+        this.referenceNumber = referenceNumber;
+    }
 }

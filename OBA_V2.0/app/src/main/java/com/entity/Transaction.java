@@ -47,4 +47,9 @@ public class Transaction {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payments_id", referencedColumnName = "id")
     private Payment payment;
+
+    public void addPayment(Payment payment) {
+        this.payment = payment;
+        payment.setTransaction(this);
+    }
 }

@@ -4,11 +4,13 @@ import com._config._helpers._enums.TransactionSource;
 import com._config._helpers._enums.TransactionStatus;
 import com._config._helpers._enums.TransactionType;
 import com.dto.AccountDTO;
+import com.dto.PaymentDTO;
 import com.dto.TransactionDTO;
 import com.service.AccountService;
 import com.service.TransactionService;
 import com.service.UserService;
 import javassist.NotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -24,7 +26,11 @@ import java.util.Locale;
 
 @Controller
 @RequestMapping("/transact")
+@Slf4j
 public class TransactionController {
+
+    // TODO: 2/8/2022 Μπορώ να αντικαταστήσω τα RequestParam με RequestBody και DTOS
+    // TODO: 2/8/2022 Μπορώ να υλοποιήσω τους ελέγχους στο service layer μαζί με exceptions και έξτρα μεθόδους για τους ελέγχους
 
     @Autowired
     private TransactionService transactionService;
@@ -129,17 +135,17 @@ public class TransactionController {
                            @RequestParam("transfer_to") String transferTo,
                            @RequestParam("transfer_amount") String transferAmount,
                            @AuthenticationPrincipal UserDetails userDetails, RedirectAttributes redirectAttributes) {
-        // Cast parameters
-        Long transferFromId = Long.valueOf(transferFrom);
-        Long transferToId = Long.valueOf(transferTo);
-        Double transferAmountValue = Double.parseDouble(transferAmount);
-
         // Check for empty fields
         if (transferFrom.isEmpty() || transferTo.isEmpty() || transferAmount.isEmpty()) {
             errorMessage = messageSource.getMessage("errors.transfer.empty", null, locale);
             redirectAttributes.addFlashAttribute("error", errorMessage);
             return "redirect:/user/user-panel";
         }
+
+        // Cast parameters
+        Long transferFromId = Long.valueOf(transferFrom);
+        Long transferToId = Long.valueOf(transferTo);
+        Double transferAmountValue = Double.parseDouble(transferAmount);
 
         // Check for transferring into the same account
         if (transferFromId == transferToId) {
@@ -169,6 +175,53 @@ public class TransactionController {
         } catch (Exception e) {
             errorMessage = e.getMessage();
             redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/user/user-panel";
+        }
+    }
+
+    @PostMapping("/payment")
+    public String payment(@RequestParam("beneficiary")String beneficiary,
+                          @RequestParam("account_number")String beneficiaryAccountNumber,
+                          @RequestParam("account_id")String accountId,
+                          @RequestParam("reference")String reference,
+                          @RequestParam("payment_amount")String paymentAmount,
+                          @AuthenticationPrincipal UserDetails userDetails, RedirectAttributes redirectAttributes) throws NotFoundException {
+        // Check for empty values
+        if (beneficiary.isEmpty() || beneficiaryAccountNumber.isEmpty() || accountId.isEmpty() || reference.isEmpty() || paymentAmount.isEmpty()) {
+            errorMessage = messageSource.getMessage("errors.payment.empty", null, locale);
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/user/user-panel";
+        }
+
+        // Cast Parameters
+        Long accountIdLong = Long.valueOf(accountId);
+        Double paymentAmountDouble = Double.valueOf(paymentAmount);
+
+        // Check for 0 values
+        if (paymentAmountDouble == 0) {
+            errorMessage = messageSource.getMessage("errors.payment.zeroAmount", null, locale);
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/user/user-panel";
+        }
+
+        try {
+            AccountDTO paymentFrom = accountService.get(accountIdLong);
+            if (paymentFrom.getBalance() < paymentAmountDouble) {
+                errorMessage = messageSource.getMessage("errors.payment.insufficientFunds", null, locale);
+                redirectAttributes.addFlashAttribute("error", errorMessage);
+                return "redirect:/user/user-panel";
+            }
+            paymentFrom.payment(paymentAmountDouble);
+            PaymentDTO paymentDTO = new PaymentDTO(beneficiary, beneficiaryAccountNumber, reference);
+            accountService.save(paymentFrom);
+            transactionService.save(new TransactionDTO(accountIdLong, paymentAmountDouble, TransactionType.PAYMENT, TransactionStatus.SUCCESS, "Payment Transaction Successful", TransactionSource.ONLINE, paymentDTO));
+            successMessage = messageSource.getMessage("success.payment", null, locale);
+            redirectAttributes.addFlashAttribute("success", successMessage);
+            log.info("test");
+            return "redirect:/user/user-panel";
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
             return "redirect:/user/user-panel";
         }
     }

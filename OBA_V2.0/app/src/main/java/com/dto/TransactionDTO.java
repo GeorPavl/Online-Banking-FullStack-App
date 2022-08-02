@@ -51,4 +51,14 @@ public class TransactionDTO {
         this.reasonCode = reasonCode;
         this.source = source;
     }
+
+    public TransactionDTO(Long accountId, Double amount, TransactionType type, TransactionStatus status, String reasonCode, TransactionSource source, PaymentDTO paymentDTO) {
+        this.accountId = accountId;
+        this.amount = amount;
+        this.type = type;
+        this.status = status;
+        this.reasonCode = reasonCode;
+        this.source = source;
+        this.paymentDTO = paymentDTO;
+    }
 }
