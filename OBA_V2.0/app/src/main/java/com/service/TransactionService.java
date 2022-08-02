@@ -21,4 +21,8 @@ public interface TransactionService {
     void deposit(TransactionDTO transactionDTO) throws NotFoundException;
 
     void withdraw(TransactionDTO transactionDTO) throws NotFoundException;
+
+    void transfer(TransactionDTO transactionDTO) throws NotFoundException;
+
+    void payment(TransactionDTO transactionDTO) throws NotFoundException;
 }

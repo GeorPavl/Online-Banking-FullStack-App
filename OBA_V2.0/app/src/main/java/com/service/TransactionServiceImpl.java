@@ -4,6 +4,7 @@ import com._config._helpers._enums.TransactionSource;
 import com._config._helpers._enums.TransactionStatus;
 import com._config._helpers._enums.TransactionType;
 import com.dto.AccountDTO;
+import com.dto.PaymentDTO;
 import com.dto.TransactionDTO;
 import com.dto.UserDTO;
 import com.entity.Account;
@@ -113,5 +114,40 @@ public class TransactionServiceImpl implements TransactionService{
         accountDTO.withdraw(transactionDTO.getAmount());
         save(new TransactionDTO(accountDTO.getId(), transactionDTO.getAmount(), TransactionType.WITHDRAW, TransactionStatus.SUCCESS, "Withdrawal Transaction Successful", TransactionSource.ONLINE));
         accountService.save(accountDTO);
+    }
+
+    @Override
+    public void transfer(TransactionDTO transactionDTO) throws NotFoundException {
+        if (transactionDTO.getId() == transactionDTO.getTransferTo()) {
+            errorMessage = messageSource.getMessage("errors.transfer.sameAccount", null, locale);
+            throw new RuntimeException(errorMessage);
+        }
+        if (transactionDTO.getAmount() == 0) {
+            errorMessage = messageSource.getMessage("errors.transfer.zeroAmount", null, locale);
+            throw new RuntimeException(errorMessage);
+        }
+        AccountDTO transferFromAccount = accountService.get(transactionDTO.getAccountId());
+        AccountDTO transferToAccount = accountService.get(transactionDTO.getTransferTo());
+        transferFromAccount.transfer(transactionDTO.getAmount(), transferToAccount);
+        save(new TransactionDTO(transactionDTO.getAccountId(), transactionDTO.getAmount(), TransactionType.TRANSFER, TransactionStatus.SUCCESS, "Transfer Transaction Successful", TransactionSource.ONLINE));
+        accountService.save(transferFromAccount);
+        accountService.save(transferToAccount);
+    }
+
+    @Override
+    public void payment(TransactionDTO transactionDTO) throws NotFoundException {
+        if (transactionDTO.getAmount() == 0) {
+            errorMessage = messageSource.getMessage("errors.payment.zeroAmount", null, locale);
+            throw new RuntimeException(errorMessage);
+        }
+        AccountDTO paymentFrom = accountService.get(transactionDTO.getAccountId());
+        if (paymentFrom.getBalance() < transactionDTO.getAmount()) {
+            errorMessage = messageSource.getMessage("errors.payment.insufficientFunds", null, locale);
+            throw new RuntimeException(errorMessage);
+        }
+        paymentFrom.payment(transactionDTO.getAmount());
+        PaymentDTO paymentDTO = new PaymentDTO(transactionDTO.getPaymentDTO().getBeneficiary(), transactionDTO.getPaymentDTO().getBeneficiaryAccountNumber(), transactionDTO.getPaymentDTO().getReferenceNumber());
+        accountService.save(paymentFrom);
+        save(new TransactionDTO(transactionDTO.getAccountId(), transactionDTO.getAmount(), TransactionType.PAYMENT, TransactionStatus.SUCCESS, "Payment Transaction Successful", TransactionSource.ONLINE, paymentDTO));
     }
 }

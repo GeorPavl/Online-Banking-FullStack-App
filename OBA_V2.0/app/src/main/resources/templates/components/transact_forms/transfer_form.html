@@ -11,12 +11,12 @@
         <!-- Card Body -->
         <div class="card-body">
             <!-- Transfer Form -->
-            <form th:action="@{/transaction/transfer}" method="post" class="form transfer-form">
+            <form th:action="@{/transaction/transfer}" method="post" th:object="${transactionDTO}" class="form transfer-form">
                 <!-- Form Group -->
                 <div class="form-group mb-2">
                     <label>Select Account</label>
                     <!-- Select Account Option -->
-                    <select name="transfer_from" class="form-control">
+                    <select th:name="accountId" class="form-control" required>
                         <option value="">-- Select Account --</option>
                         <div th:if="${user.accountDTOS != null}">
                             <option th:each="a : ${user.accountDTOS}" th:value="${a.id}" th:text="${a.name}"></option>
@@ -30,7 +30,7 @@
                 <div class="form-group mb-2">
                     <label>Select Account</label>
                     <!-- Select Account Option -->
-                    <select name="transfer_to" class="form-control">
+                    <select th:name="transferTo" class="form-control" required>
                         <option value="">-- Select Account --</option>
                         <div th:if="${user.accountDTOS != null}">
                             <option th:each="a : ${user.accountDTOS}" th:value="${a.id}" th:text="${a.name}"></option>
@@ -43,7 +43,7 @@
                 <!-- Form Group -->
                 <div class="form-group mb-2">
                     <label>Transfer Amount</label>
-                    <input type="text" name="transfer_amount" class="form-control" placeholder="Enter Transfer Amount">
+                    <input type="text" th:name="amount" class="form-control" placeholder="Enter Transfer Amount" required>
                 </div>
                 <!-- End of Form Group -->
 

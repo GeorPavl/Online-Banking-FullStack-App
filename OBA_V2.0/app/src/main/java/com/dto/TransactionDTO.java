@@ -33,6 +33,8 @@ public class TransactionDTO {
 
     private PaymentDTO paymentDTO;
 
+    private Long transferTo;
+
     public TransactionDTO(Transaction transaction) {
         BeanUtils.copyProperties(transaction, this);
         if (transaction.getAccount() != null) {
