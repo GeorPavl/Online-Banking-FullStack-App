@@ -49,7 +49,7 @@ public class UserController {
 
         title = messageSource.getMessage("titles.register", null, locale);
         model.addAttribute("pageTitle", title);
-
+        // TODO: 2/8/2022 Να περάσει το confirmPassword στο DTO και ο έλεγχος στο service 
         // Check for errors
         if (!userDTO.getPassword().equals(confirmPassword)) {
             errorMessage = messageSource.getMessage("errors.registration.passwordMisMatch", null, locale);
@@ -74,7 +74,6 @@ public class UserController {
         title = messageSource.getMessage("titles.userPanel", null, locale);
         model.addAttribute("pageTitle", title);
 
-        // Get the details of logged in User
         try {
             UserDTO userDTO = userService.getByUsername(userDetails.getUsername());
             // TODO: 24/7/2022 Fix Accordion Collapse
