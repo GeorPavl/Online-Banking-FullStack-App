@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Controller
-@RequestMapping("/transact")
+@RequestMapping("/transaction")
 public class TransactionController {
 
     // TODO: 2/8/2022 Μπορώ να αντικαταστήσω τα RequestParam με RequestBody και DTOS
@@ -47,7 +47,7 @@ public class TransactionController {
     private static String successMessage;
     private static final Locale locale = LocaleContextHolder.getLocale();
 
-    @GetMapping("/transact_history")
+    @GetMapping("/transact-history")
     public String getTransactionsList(@AuthenticationPrincipal UserDetails userDetails, Model model, RedirectAttributes redirectAttributes) throws NotFoundException {
         // Get logged in user
         UserDTO userDTO = userService.getByUsername(userDetails.getUsername());

@@ -1,6 +1,5 @@
 package com.controller;
 
-import com._config._helpers._enums.AccountType;
 import com.dto.AccountDTO;
 import com.service.AccountService;
 import com.service.UserService;
@@ -11,7 +10,10 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Locale;
@@ -37,9 +39,6 @@ public class AccountController {
                                 @ModelAttribute AccountDTO accountDTO,
                                 @AuthenticationPrincipal UserDetails userDetails,
                                 RedirectAttributes redirectAttributes) throws NotFoundException {
-        if (accountDTO.getType() != null) {
-            accountDTO.setType(AccountType.valueOf(accountType));
-        }
         try {
             accountService.createAccount(accountDTO);
             successMessage = messageSource.getMessage("success.account.save", null, locale);
