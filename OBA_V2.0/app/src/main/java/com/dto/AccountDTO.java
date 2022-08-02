@@ -54,8 +54,11 @@ public class AccountDTO {
         this.userId = userId;
     }
 
-    public Double deposit(Double depositAmount) {
+    public void deposit(Double depositAmount) {
         this.balance += depositAmount;
-        return this.balance;
+    }
+
+    public void withdraw(Double withdrawAmount) {
+        this.balance -= withdrawAmount;
     }
 }

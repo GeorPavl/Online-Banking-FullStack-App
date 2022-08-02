@@ -64,7 +64,7 @@ public class UserController {
             return "login";
         } catch (Exception e) {
             errorMessage = messageSource.getMessage("errors.registration.general", null, locale);
-            model.addAttribute("error", errorMessage);
+            model.addAttribute("error", e.getMessage());
             return "error";
         }
     }

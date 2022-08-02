@@ -25,8 +25,8 @@
                         <!-- Select Account Option -->
                         <select name="account_id" class="form-control">
                             <option value="">-- Select Account --</option>
-                            <div th:if="${userAccounts != null}">
-                                <option th:each="a : ${userAccounts}" th:value="${a.id}" th:text="${a.name}"></option>
+                            <div th:if="${user.accountDTOS != null}">
+                                <option th:each="a : ${user.accountDTOS}" th:value="${a.id}" th:text="${a.name}"></option>
                             </div>
                         </select>
                         <!-- Select Account Option -->
