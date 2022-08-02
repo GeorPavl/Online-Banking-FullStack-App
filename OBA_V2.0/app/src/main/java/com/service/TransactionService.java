@@ -10,7 +10,7 @@ public interface TransactionService {
 
     Transaction dtoToEntity(TransactionDTO transactionDTO);
 
-    List<TransactionDTO> getTransactionsByUser(Long userId) throws NotFoundException;
+    List<TransactionDTO> getTransactionsByUser() throws NotFoundException;
 
     TransactionDTO get(Long id) throws NotFoundException;
 
@@ -19,4 +19,6 @@ public interface TransactionService {
     void delete(Long id) throws NotFoundException;
 
     void deposit(TransactionDTO transactionDTO) throws NotFoundException;
+
+    void withdraw(TransactionDTO transactionDTO) throws NotFoundException;
 }

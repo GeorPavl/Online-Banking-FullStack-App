@@ -11,11 +11,11 @@
             <!-- Card Body -->
             <div class="card-body">
                 <!-- Withdraw Form -->
-                <form th:action="@{/transaction/withdraw}" method="post" class="form withdraw-form">
+                <form th:action="@{/transaction/withdraw}" method="post" th:object="${transactionDTO}" class="form withdraw-form">
                     <!-- Form Group -->
                     <div class="form-group mb-2">
                         <label>Withdrawal Amount</label>
-                        <input type="text" name="withdrawal_amount" class="form-control" placeholder="Enter Withdrawal Amount">
+                        <input type="text" th:name="amount" class="form-control" placeholder="Enter Withdrawal Amount" required>
                     </div>
                     <!-- End of Form Group -->
 
@@ -23,7 +23,7 @@
                     <div class="form-group mb-2">
                         <label>Select Account</label>
                         <!-- Select Account Option -->
-                        <select name="account_id" class="form-control">
+                        <select th:name="accountId" class="form-control" required>
                             <option value="">-- Select Account --</option>
                             <div th:if="${user.accountDTOS != null}">
                                 <option th:each="a : ${user.accountDTOS}" th:value="${a.id}" th:text="${a.name}"></option>

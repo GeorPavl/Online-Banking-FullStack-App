@@ -30,7 +30,7 @@
 
                 <!-- Card Body -->
                 <div class="card-body">
-                    <div th:if="${transact_history != null}">
+                    <div th:if="${transactHistory != null}">
                         <!-- Payment History Table -->
                         <table class="table text-center table-striped">
                             <tr>
@@ -46,7 +46,7 @@
                                 <th>Reference Number</th>
                             </tr>
                             <!-- Loop Through Payment History Records -->
-                            <tr th:each="t: ${transact_history}">
+                            <tr th:each="t: ${transactHistory}">
                                 <td th:text="${t.id}"></td>
                                 <td th:text="${t.type}"></td>
                                 <td th:text="${t.amount}"></td>

@@ -6,7 +6,6 @@ import com._config._helpers._enums.TransactionType;
 import com.dto.AccountDTO;
 import com.dto.PaymentDTO;
 import com.dto.TransactionDTO;
-import com.dto.UserDTO;
 import com.service.AccountService;
 import com.service.TransactionService;
 import com.service.UserService;
@@ -28,9 +27,6 @@ import java.util.Locale;
 @RequestMapping("/transaction")
 public class TransactionController {
 
-    // TODO: 2/8/2022 Μπορώ να αντικαταστήσω τα RequestParam με RequestBody και DTOS
-    // TODO: 2/8/2022 Μπορώ να υλοποιήσω τους ελέγχους στο service layer μαζί με exceptions και έξτρα μεθόδους για τους ελέγχους
-
     @Autowired
     private TransactionService transactionService;
     @Autowired
@@ -45,19 +41,17 @@ public class TransactionController {
     private static final Locale locale = LocaleContextHolder.getLocale();
 
     @GetMapping("/transact-history")
-    public String getTransactionsList(@AuthenticationPrincipal UserDetails userDetails, Model model, RedirectAttributes redirectAttributes) throws NotFoundException {
-        // Get logged in user
-        UserDTO userDTO = userService.getByUsername(userDetails.getUsername());
-        // Get user's accounts
-        List<TransactionDTO> transactionDTOS = transactionService.getTransactionsByUser(userDTO.getId());
-        if (transactionDTOS == null) {
-            errorMessage = messageSource.getMessage("errors.transaction.emptyList", null, locale);
+    public String getTransactionsList(Model model, RedirectAttributes redirectAttributes) throws NotFoundException {
+        try {
+            List<TransactionDTO> transactionDTOS = transactionService.getTransactionsByUser();
+            model.addAttribute("transactHistory", transactionDTOS);
+            model.addAttribute("user", userService.getLoggedInUser());
+            return "transact_history";
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
             redirectAttributes.addFlashAttribute("error", errorMessage);
             return "redirect:/user/user-panel";
         }
-        model.addAttribute("transact_history", transactionDTOS);
-        model.addAttribute("user", userDTO);
-        return "transact_history";
     }
 
     @PostMapping("/deposit")
@@ -76,38 +70,10 @@ public class TransactionController {
     }
 
     @PostMapping("/withdraw")
-    public String withdraw(@RequestParam("withdrawal_amount")String withdrawalAmount,
-                           @RequestParam("account_id")String accountID,
+    public String withdraw(@ModelAttribute TransactionDTO transactionDTO,
                            RedirectAttributes redirectAttributes) throws NotFoundException {
-        // Check for empty values
-        if(withdrawalAmount.isEmpty() || accountID.isEmpty()){
-            errorMessage = messageSource.getMessage("errors.withdraw.empty", null, locale);
-            redirectAttributes.addFlashAttribute("error", errorMessage);
-            return "redirect:/user/user-panel";
-        }
-
-        // Cast parameters
-        Double withdrawalAmountDouble = Double.parseDouble(withdrawalAmount);
-        Long accountIdLong = Long.valueOf(accountID);
-
         try {
-            AccountDTO accountDTO = accountService.get(accountIdLong);
-            // Check for zero values
-            if (withdrawalAmountDouble == 0){
-                errorMessage = messageSource.getMessage("errors.withdraw.zeroAmount", null, locale);
-                redirectAttributes.addFlashAttribute("error", errorMessage);
-                return "redirect:/user/user-panel";
-            } else if (accountDTO.getBalance() < withdrawalAmountDouble) {
-                errorMessage = messageSource.getMessage("errors.withdraw.insufficientFunds", null, locale);
-                redirectAttributes.addFlashAttribute("error", errorMessage);
-                return "redirect:/user/user-panel";
-            }
-            // Withdraw amount and save transaction / account
-            accountDTO.withdraw(withdrawalAmountDouble);
-            // Save transaction and new balance
-            transactionService.save(new TransactionDTO(accountIdLong, withdrawalAmountDouble, TransactionType.WITHDRAW, TransactionStatus.SUCCESS, "Withdrawal Transaction Successful", TransactionSource.ONLINE));
-            accountService.save(accountDTO);
-            // Set attribute
+            transactionService.withdraw(transactionDTO);
             successMessage = messageSource.getMessage("success.withdrawal", null, locale);
             redirectAttributes.addFlashAttribute("success", successMessage);
             return "redirect:/user/user-panel";

@@ -5,6 +5,7 @@ import com._config._helpers._enums.TransactionStatus;
 import com._config._helpers._enums.TransactionType;
 import com.dto.AccountDTO;
 import com.dto.TransactionDTO;
+import com.dto.UserDTO;
 import com.entity.Account;
 import com.entity.Transaction;
 import com.repository.TransactionRepository;
@@ -36,7 +37,6 @@ public class TransactionServiceImpl implements TransactionService{
 
     private static final Locale locale = LocaleContextHolder.getLocale();
     private static String errorMessage;
-    private static String successMessage;
 
     @Override
     public Transaction dtoToEntity(TransactionDTO transactionDTO) {
@@ -54,9 +54,10 @@ public class TransactionServiceImpl implements TransactionService{
     }
 
     @Override
-    public List<TransactionDTO> getTransactionsByUser(Long userId) throws NotFoundException {
+    public List<TransactionDTO> getTransactionsByUser() throws NotFoundException {
+        UserDTO userDTO = userService.getLoggedInUser();
         List<TransactionDTO> list = new ArrayList<>();
-        for (Transaction transaction : transactionRepository.getTransactionsById(userId)) {
+        for (Transaction transaction : transactionRepository.getTransactionsById(userDTO.getId())) {
             list.add(new TransactionDTO(transaction));
         }
         return list;
@@ -96,6 +97,21 @@ public class TransactionServiceImpl implements TransactionService{
         accountDTO.deposit(transactionDTO.getAmount());
         // Save transaction and new balance
         save(new TransactionDTO(transactionDTO.getAccountId(), transactionDTO.getAmount(), TransactionType.DEPOSIT, TransactionStatus.SUCCESS, "Deposit Transaction Successful", TransactionSource.ONLINE));
+        accountService.save(accountDTO);
+    }
+
+    @Override
+    public void withdraw(TransactionDTO transactionDTO) throws NotFoundException {
+        AccountDTO accountDTO = accountService.get(transactionDTO.getAccountId());
+        if (transactionDTO.getAmount() == 0) {
+            errorMessage = messageSource.getMessage("errors.withdraw.zeroAmount", null, locale);
+            throw new RuntimeException(errorMessage);
+        } else if (accountDTO.getBalance() < transactionDTO.getAmount()) {
+            errorMessage = messageSource.getMessage("errors.withdraw.insufficientFunds", null, locale);
+            throw new RuntimeException(errorMessage);
+        }
+        accountDTO.withdraw(transactionDTO.getAmount());
+        save(new TransactionDTO(accountDTO.getId(), transactionDTO.getAmount(), TransactionType.WITHDRAW, TransactionStatus.SUCCESS, "Withdrawal Transaction Successful", TransactionSource.ONLINE));
         accountService.save(accountDTO);
     }
 }

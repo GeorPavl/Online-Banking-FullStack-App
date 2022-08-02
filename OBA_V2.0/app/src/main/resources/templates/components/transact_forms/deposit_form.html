@@ -15,7 +15,7 @@
                 <!-- Form Group -->
                 <div class="form-group mb-2">
                     <label>Deposit Amount</label>
-                    <input type="text" th:name="amount" class="form-control" placeholder="Enter Deposit Amount">
+                    <input type="text" th:name="amount" class="form-control" placeholder="Enter Deposit Amount" required>
                 </div>
                 <!-- End of Form Group -->
 
@@ -23,7 +23,7 @@
                 <div class="form-group mb-2">
                     <label>Select Account</label>
                     <!-- Select Account Option -->
-                    <select th:name="accountId" class="form-control">
+                    <select th:name="accountId" class="form-control" required>
                         <option value="">-- Select Account --</option>
                         <div th:if="${user.accountDTOS != null}">
                             <option th:each="a : ${user.accountDTOS}" th:value="${a.id}" th:text="${a.name}"></option>
