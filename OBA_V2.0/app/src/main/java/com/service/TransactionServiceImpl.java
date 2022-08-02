@@ -9,6 +9,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +20,10 @@ public class TransactionServiceImpl implements TransactionService{
     private TransactionRepository transactionRepository;
     @Autowired
     private PaymentService paymentService;
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private UserService userService;
 
     @Override
     public Transaction dtoToEntity(TransactionDTO transactionDTO) {
@@ -32,6 +38,15 @@ public class TransactionServiceImpl implements TransactionService{
             transaction.addPayment(paymentService.dtoToEntity(transactionDTO.getPaymentDTO()));
         }
         return transaction;
+    }
+
+    @Override
+    public List<TransactionDTO> getTransactionsByUser(Long userId) throws NotFoundException {
+        List<TransactionDTO> list = new ArrayList<>();
+        for (Transaction transaction : transactionRepository.getTransactionsById(userId)) {
+            list.add(new TransactionDTO(transaction));
+        }
+        return list;
     }
 
     @Override

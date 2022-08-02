@@ -6,6 +6,7 @@ import com._config._helpers._enums.TransactionType;
 import com.dto.AccountDTO;
 import com.dto.PaymentDTO;
 import com.dto.TransactionDTO;
+import com.dto.UserDTO;
 import com.service.AccountService;
 import com.service.TransactionService;
 import com.service.UserService;
@@ -16,11 +17,14 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -42,6 +46,22 @@ public class TransactionController {
     private static String errorMessage;
     private static String successMessage;
     private static final Locale locale = LocaleContextHolder.getLocale();
+
+    @GetMapping("/transact_history")
+    public String getTransactionsList(@AuthenticationPrincipal UserDetails userDetails, Model model, RedirectAttributes redirectAttributes) throws NotFoundException {
+        // Get logged in user
+        UserDTO userDTO = userService.getByUsername(userDetails.getUsername());
+        // Get user's accounts
+        List<TransactionDTO> transactionDTOS = transactionService.getTransactionsByUser(userDTO.getId());
+        if (transactionDTOS == null) {
+            errorMessage = messageSource.getMessage("errors.transaction.emptyList", null, locale);
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/user/user-panel";
+        }
+        model.addAttribute("transact_history", transactionDTOS);
+        model.addAttribute("user", userDTO);
+        return "transact_history";
+    }
 
     @PostMapping("/deposit")
     public String deposit(@RequestParam("account_id") String accountId,

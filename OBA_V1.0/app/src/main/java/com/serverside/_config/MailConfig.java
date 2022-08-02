@@ -18,10 +18,10 @@ public class MailConfig {
 
         // Set Mail Credentials:
         emailConfig.setHost("smtp.gmail.com");
-        emailConfig.setPort();	//587
-	// TODO set creds
-        emailConfig.setUsername();
-        emailConfig.setPassword();
+        emailConfig.setPort(587);	//587
+	    // TODO set creds
+        emailConfig.setUsername("");
+        emailConfig.setPassword("");
 
         return emailConfig;
     }

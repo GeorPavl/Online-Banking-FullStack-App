@@ -44,13 +44,13 @@
                             </tr>
                             <!-- Loop Through Payment History Records -->
                             <tr th:each="t: ${transact_history}">
-                                <td th:text="${t.transaction_id}"></td>
-                                <td th:text="${t.transaction_type}"></td>
+                                <td th:text="${t.id}"></td>
+                                <td th:text="${t.type}"></td>
                                 <td th:text="${t.amount}"></td>
                                 <td th:text="${t.source}"></td>
                                 <td th:text="${t.status}"></td>
-                                <td th:text="${t.reason_code}"></td>
-                                <td th:text="${t.created_at}"></td>
+                                <td th:text="${t.reasonCode}"></td>
+                                <td th:text="${t.createdAt}"></td>
                             </tr>
                             <!-- End Of Loop Through Payment History Records -->
                         </table>
