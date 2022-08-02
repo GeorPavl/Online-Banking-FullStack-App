@@ -10,7 +10,6 @@ import com.service.AccountService;
 import com.service.TransactionService;
 import com.service.UserService;
 import javassist.NotFoundException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -26,7 +25,6 @@ import java.util.Locale;
 
 @Controller
 @RequestMapping("/transact")
-@Slf4j
 public class TransactionController {
 
     // TODO: 2/8/2022 Μπορώ να αντικαταστήσω τα RequestParam με RequestBody και DTOS
@@ -217,7 +215,6 @@ public class TransactionController {
             transactionService.save(new TransactionDTO(accountIdLong, paymentAmountDouble, TransactionType.PAYMENT, TransactionStatus.SUCCESS, "Payment Transaction Successful", TransactionSource.ONLINE, paymentDTO));
             successMessage = messageSource.getMessage("success.payment", null, locale);
             redirectAttributes.addFlashAttribute("success", successMessage);
-            log.info("test");
             return "redirect:/user/user-panel";
         } catch (Exception e) {
             errorMessage = e.getMessage();
