@@ -13,6 +13,8 @@ import com.repository.UserRepository;
 import javassist.NotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ import javax.mail.MessagingException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -35,6 +38,11 @@ public class UserServiceImpl implements UserService{
     private AccountService accountService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private MessageSource messageSource;
+
+    private static final Locale locale = LocaleContextHolder.getLocale();
+    private static String errorMessage;
 
     @Override
     public User dtoToEntity(UserDTO userDTO) throws NotFoundException {
@@ -99,6 +107,13 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserDTO register(UserDTO userDTO) throws NotFoundException, MessagingException {
+
+        // Check if passwords match
+        if (!userDTO.getPassword().equals(userDTO.getConfirmPassword())) {
+            errorMessage = messageSource.getMessage("errors.registration.passwordMisMatch", null, locale);
+            throw new IllegalArgumentException(errorMessage);
+        }
+
         // Generate and set token
         userDTO.setToken(Token.generateToken());
         // Generate and set code

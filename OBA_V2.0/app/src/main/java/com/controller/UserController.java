@@ -43,19 +43,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute UserDTO userDTO,
-                               @RequestParam("confirmPassword") String confirmPassword,
-                               Model model) throws NotFoundException, MessagingException {
-
+    public String registerUser(@ModelAttribute UserDTO userDTO, Model model) throws NotFoundException, MessagingException {
         title = messageSource.getMessage("titles.register", null, locale);
         model.addAttribute("pageTitle", title);
-        // TODO: 2/8/2022 Να περάσει το confirmPassword στο DTO και ο έλεγχος στο service 
-        // Check for errors
-        if (!userDTO.getPassword().equals(confirmPassword)) {
-            errorMessage = messageSource.getMessage("errors.registration.passwordMisMatch", null, locale);
-            model.addAttribute("error", errorMessage);
-            return "error";
-        }
 
         try {
             userService.register(userDTO);
@@ -76,14 +66,12 @@ public class UserController {
 
         try {
             UserDTO userDTO = userService.getByUsername(userDetails.getUsername());
-            // TODO: 24/7/2022 Fix Accordion Collapse
             model.addAttribute("user", userDTO);
+            return "user/user-index";
         } catch (Exception e) {
             errorMessage = messageSource.getMessage("errors.user.notFound", null, locale);
             model.addAttribute("error", errorMessage);
             return "error";
         }
-
-        return "user/user-index";
     }
 }

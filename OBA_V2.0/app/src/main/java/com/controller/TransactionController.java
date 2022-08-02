@@ -93,7 +93,7 @@ public class TransactionController {
             accountDTO.deposit(depositAmountValue);
             // Save transaction and new balance
             transactionService.save(new TransactionDTO(accountIdLong, depositAmountValue, TransactionType.DEPOSIT, TransactionStatus.SUCCESS, "Deposit Transaction Successful", TransactionSource.ONLINE));
-            accountService.save(accountService.get(accountIdLong));
+            accountService.save(accountDTO);
             // Set attribute
             successMessage = messageSource.getMessage("success.deposit", null, locale);
             redirectAttributes.addFlashAttribute("success", successMessage);
@@ -136,7 +136,7 @@ public class TransactionController {
             accountDTO.withdraw(withdrawalAmountDouble);
             // Save transaction and new balance
             transactionService.save(new TransactionDTO(accountIdLong, withdrawalAmountDouble, TransactionType.WITHDRAW, TransactionStatus.SUCCESS, "Withdrawal Transaction Successful", TransactionSource.ONLINE));
-            accountService.save(accountService.get(accountIdLong));
+            accountService.save(accountDTO);
             // Set attribute
             successMessage = messageSource.getMessage("success.withdrawal", null, locale);
             redirectAttributes.addFlashAttribute("success", successMessage);

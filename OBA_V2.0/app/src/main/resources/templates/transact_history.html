@@ -41,6 +41,9 @@
                                 <th>Status</th>
                                 <th>Reason Code</th>
                                 <th>Created at</th>
+                                <th>Beneficiary</th>
+                                <th>Beneficiary Account No</th>
+                                <th>Reference Number</th>
                             </tr>
                             <!-- Loop Through Payment History Records -->
                             <tr th:each="t: ${transact_history}">
@@ -51,6 +54,18 @@
                                 <td th:text="${t.status}"></td>
                                 <td th:text="${t.reasonCode}"></td>
                                 <td th:text="${t.createdAt}"></td>
+                                <div th:switch="${t.paymentDTO == null}">
+                                    <td th:case="${false}" th:text="${t.paymentDTO.beneficiary}"></td>
+                                    <td th:case="${true}">-</td>
+                                </div>
+                                <div th:switch="${t.paymentDTO == null}">
+                                    <td th:case="${false}" th:text="${t.paymentDTO.beneficiaryAccountNumber}"></td>
+                                    <td th:case="${true}">-</td>
+                                </div>
+                                <div th:switch="${t.paymentDTO == null}">
+                                    <td th:case="${false}" th:text="${t.paymentDTO.referenceNumber}"></td>
+                                    <td th:case="${true}">-</td>
+                                </div>
                             </tr>
                             <!-- End Of Loop Through Payment History Records -->
                         </table>

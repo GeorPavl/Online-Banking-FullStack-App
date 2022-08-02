@@ -44,6 +44,8 @@ public class UserDTO {
 
     private Double totalBalance = 0.0;
 
+    private String confirmPassword;
+
     public UserDTO(User user) {
         BeanUtils.copyProperties(user, this);
         if (user.getPerson() != null) {
@@ -59,7 +61,6 @@ public class UserDTO {
                 accountDTOS.add(new AccountDTO(account));
                 this.totalBalance += account.getBalance();
             }
-
         }
     }
 }
