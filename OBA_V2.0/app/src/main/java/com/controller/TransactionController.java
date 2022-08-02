@@ -12,6 +12,8 @@ import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -113,6 +115,55 @@ public class TransactionController {
             accountService.save(accountService.get(accountIdLong));
             // Set attribute
             successMessage = messageSource.getMessage("success.withdrawal", null, locale);
+            redirectAttributes.addFlashAttribute("success", successMessage);
+            return "redirect:/user/user-panel";
+        } catch (Exception e) {
+            errorMessage = e.getMessage();
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/user/user-panel";
+        }
+    }
+
+    @PostMapping("/transfer")
+    public String transfer(@RequestParam("transfer_from") String transferFrom,
+                           @RequestParam("transfer_to") String transferTo,
+                           @RequestParam("transfer_amount") String transferAmount,
+                           @AuthenticationPrincipal UserDetails userDetails, RedirectAttributes redirectAttributes) {
+        // Cast parameters
+        Long transferFromId = Long.valueOf(transferFrom);
+        Long transferToId = Long.valueOf(transferTo);
+        Double transferAmountValue = Double.parseDouble(transferAmount);
+
+        // Check for empty fields
+        if (transferFrom.isEmpty() || transferTo.isEmpty() || transferAmount.isEmpty()) {
+            errorMessage = messageSource.getMessage("errors.transfer.empty", null, locale);
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/user/user-panel";
+        }
+
+        // Check for transferring into the same account
+        if (transferFromId == transferToId) {
+            errorMessage = messageSource.getMessage("errors.transfer.sameAccount", null, locale);
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/user/user-panel";
+        }
+
+        // Check for zero values
+        if (transferAmountValue == 0) {
+            errorMessage = messageSource.getMessage("errors.transfer.zeroAmount", null, locale);
+            redirectAttributes.addFlashAttribute("error", errorMessage);
+            return "redirect:/user/user-panel";
+        }
+
+        try {
+            AccountDTO transferFromAccountDTO = accountService.get(transferFromId);
+            AccountDTO transferToAccountDTO = accountService.get(transferToId);
+            transferFromAccountDTO.transfer(transferAmountValue, transferToAccountDTO);
+
+            transactionService.save(new TransactionDTO(transferFromId, transferAmountValue, TransactionType.TRANSFER, TransactionStatus.SUCCESS, "Transfer Transaction Successful", TransactionSource.ONLINE));
+            accountService.save(transferFromAccountDTO);
+            accountService.save(transferToAccountDTO);
+            successMessage = messageSource.getMessage("success.transfer", null, locale);
             redirectAttributes.addFlashAttribute("success", successMessage);
             return "redirect:/user/user-panel";
         } catch (Exception e) {

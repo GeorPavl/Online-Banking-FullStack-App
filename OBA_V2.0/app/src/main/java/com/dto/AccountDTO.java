@@ -61,4 +61,9 @@ public class AccountDTO {
     public void withdraw(Double withdrawAmount) {
         this.balance -= withdrawAmount;
     }
+
+    public void transfer(Double transferAmount, AccountDTO transferTo) {
+        this.balance -= transferAmount;
+        transferTo.balance += transferAmount;
+    }
 }
