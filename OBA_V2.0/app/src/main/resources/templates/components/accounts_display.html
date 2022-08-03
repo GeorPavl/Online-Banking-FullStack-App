@@ -55,11 +55,10 @@
                                     <li class="list-group-item d-flex">Account Balance <span class="ms-auto" th:text="${account.balance}"><b></b></span></li>
                                     <li class="list-group-item d-flex">Created at <span class="ms-auto" th:text="${account.createdAt}"><b></b></span></li>
                                     <!-- Button Wrapper-->
-                                    <div class="button-wrapper d-flex align-items-center">
-                                        <a th:href="@{/account/delete(id=${account.id})}" class="btn btn-md btn-danger ms-auto mt-1">
-                                            <i class="fa fa-trash"></i> Delete
-                                        </a>
-                                    </div>
+                                    <form th:action="@{/account/delete}" method="post">
+                                        <input type="hidden" name="id" th:value="${account.id}">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
                                     <!-- End of Button Wrapper -->
                                 </ul>
                             </div>

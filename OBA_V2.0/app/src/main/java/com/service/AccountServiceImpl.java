@@ -73,7 +73,7 @@ public class AccountServiceImpl implements AccountService{
                 errorMessage = messageSource.getMessage("errors.account.delete", null, locale);
                 throw new RuntimeException(errorMessage);
             }
-            // TODO: 3/8/2022 deleteById δε δουλευει. Πιθανό να ευθύνεται το getmapping αντι για delete
+            // TODO: 3/8/2022
             accountRepository.deleteById(id);
         } else {
             errorMessage = messageSource.getMessage("errors.account.delete", null, locale);
