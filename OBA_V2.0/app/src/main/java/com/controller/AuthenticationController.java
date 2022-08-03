@@ -25,6 +25,13 @@ public class AuthenticationController {
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String getLogoutPage(Model model) {
+        title = messageSource.getMessage("titles.login", null, locale);
+        model.addAttribute("pageTitle", title);
+        return "login";
+    }
+
     @GetMapping("/access-denied")
     public String showAccessDeniedPage(Model model) {
         title = messageSource.getMessage("titles.accessDenied", null, locale);
