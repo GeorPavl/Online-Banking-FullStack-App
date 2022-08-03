@@ -2,7 +2,6 @@ package com.service;
 
 import com.dto.AccountDTO;
 import com.dto.TransactionDTO;
-import com.dto.UserDTO;
 import com.entity.Account;
 import com.entity.User;
 import com.repository.AccountRepository;
@@ -64,25 +63,21 @@ public class AccountServiceImpl implements AccountService{
 
     @Override
     public AccountDTO createAccount(AccountDTO accountDTO) throws NotFoundException {
-        UserDTO userDTO = userService.getLoggedInUser();
-
-        // Check for empty strings
-        if (accountDTO.getName() == null || accountDTO.getName().isEmpty()) {
-            errorMessage = messageSource.getMessage("errors.account.emptyName", null, locale);
-            throw new IllegalArgumentException(errorMessage);
-        } else if (accountDTO.getType() == null) {
-            errorMessage = messageSource.getMessage("errors.account.emptyType", null, locale);
-            throw new IllegalArgumentException(errorMessage);
-        }
-        return save(new AccountDTO(accountDTO.getName(), accountDTO.getType(), userDTO.getId()));
+        return save(new AccountDTO(accountDTO.getName(), accountDTO.getType(), userService.getLoggedInUser().getId()));
     }
 
-    // TODO: 1/8/2022 Check if account's balance > 0
-    //  if account's balance > 0   ->  user must transfer or withraw money
     @Override
     public void delete(Long id) throws NotFoundException {
         if (get(id) != null) {
+            if (get(id).getBalance() > 0) {
+                errorMessage = messageSource.getMessage("errors.account.delete", null, locale);
+                throw new RuntimeException(errorMessage);
+            }
+            // TODO: 3/8/2022 deleteById δε δουλευει. Πιθανό να ευθύνεται το getmapping αντι για delete
             accountRepository.deleteById(id);
+        } else {
+            errorMessage = messageSource.getMessage("errors.account.delete", null, locale);
+            throw new RuntimeException(errorMessage);
         }
     }
 }

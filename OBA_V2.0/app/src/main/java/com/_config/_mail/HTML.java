@@ -103,8 +103,6 @@ public class HTML {
                         "        <br>\n" +
                         "\n" +
                         "        <!-- Verify Account Button -->\n" +
-                        // TODO: 19/7/2022 Να καταλάβω τι κάνει εδώ το url. Δες tutorial, αλλά δεν αρκεί:
-                        //  https://www.youtube.com/watch?v=NC8nAf_Sof0&list=PLoYPuzsyna1ltgberKUu2gLtiZYJFFZIJ&index=17
                         "        <center><a href='"+ url +"' class='verify-account-btn' role='button'>Verify Account</a></center>\n" +
                         "        <!-- End Of Verify Account Button -->\n" +
                         "\n" +

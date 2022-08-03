@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-
+        <link th:href="@{/css/default.css}" rel="stylesheet" />
     </head>
 
     <body>
@@ -54,9 +54,16 @@
                                     <li class="list-group-item d-flex">Account Type <span class="ms-auto" th:text="${account.type}"><b></b></span></li>
                                     <li class="list-group-item d-flex">Account Balance <span class="ms-auto" th:text="${account.balance}"><b></b></span></li>
                                     <li class="list-group-item d-flex">Created at <span class="ms-auto" th:text="${account.createdAt}"><b></b></span></li>
+                                    <!-- Button Wrapper-->
+                                    <div class="button-wrapper d-flex align-items-center">
+                                        <a th:href="@{/account/delete(id=${account.id})}" class="btn btn-md btn-danger ms-auto mt-1">
+                                            <i class="fa fa-trash"></i> Delete
+                                        </a>
+                                    </div>
+                                    <!-- End of Button Wrapper -->
                                 </ul>
-                                <!-- Account Details List -->
                             </div>
+                            <!-- Account Details List -->
                         </div>
                     </div>
                     <!-- End of Accordion Item -->
